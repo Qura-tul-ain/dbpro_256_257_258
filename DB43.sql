@@ -6,8 +6,9 @@ CREATE TABLE [Person](
 [FirstName]varchar(30) NOT NULL,
 [Contact] varchar(20) NOT NULL UNIQUE,
 [Email] varchar(20) NOT NULL UNIQUE,
-[Gender] varchar NOT NULL,
-[Discriminator]Date NOT NULL,
+[Gender] varchar(20) NOT NULL,
+[Password] varchar(128) NOT NULL,
+[Discriminator] varchar(20) NOT NULL
 
 )
 
@@ -36,7 +37,7 @@ CREATE TABLE [Student](
 [Id] int NOT NULL FOREIGN KEY REFERENCES Person(Id),
 [RegistrationNumber] varchar(30) NOT NULL UNIQUE,
 [EnrollmentDate] Date NOT NULL,
-[Status] varchar NOT NULL,
+[Status] varchar(20) NOT NULL,
 PRIMARY KEY(Id)
 )
 
