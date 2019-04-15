@@ -58,44 +58,48 @@ PRIMARY KEY(Id)
 )
 
 create TABLE [Questions](
-[Id] int NOT NULL FOREIGN KEY REFERENCES Quiz(Id),
+[Id] int NOT NULL,
 [Name] varchar(30) NOT NULL UNIQUE,
 [DateCreated] Date NOT NULL,
 [DateUpdated] Date NOT NULL,
 [TotalMarks] int NOT NULL,
+[QuizId] int NOT NULL FOREIGN KEY REFERENCES Quiz(Id),
 PRIMARY KEY(Id)
 )
 
 CREATE TABLE [Options](
-[Id] int NOT NULL FOREIGN KEY REFERENCES Questions(Id),
+[Id] int NOT NULL,
 [OptionValue] varchar(30) NOT NULL UNIQUE,
 [DateCreated] Date NOT NULL,
 [DateUpdated] Date NOT NULL,
+[QuestionsId] int NOT NULL FOREIGN KEY REFERENCES Questions(Id),
 PRIMARY KEY(Id)
 )
 
 CREATE TABLE [CorrectOption](
-[Id] int NOT NULL FOREIGN KEY REFERENCES Questions(Id),
+[Id] int NOT NULL,
 [Correctvalue] varchar(30) NOT NULL UNIQUE,
 [DateCreated] Date NOT NULL,
 [DateUpdated] Date NOT NULL,
+[QuestionId] int NOT NULL FOREIGN KEY REFERENCES Questions(Id),
 PRIMARY KEY(Id)
 )
 
 CREATE TABLE [StudentResult](
+[Id] int NOT NULL,
 [StudentId] int not null FOREIGN KEY REFERENCES Student(Id),
 [QuestionId] int not null FOREIGN KEY REFERENCES Questions(Id),
 [EvalutionDate] Date NOT NULL,
 [Ans] varchar(30) NOT NULL,
 [Marks] int NOT NULL,
-[Id] int NOT NULL,
+
 PRIMARY KEY(Id)
 )
 
 CREATE TABLE [Announcement](
 [Id] int NOT NULL,
 [Text] varchar(300) NOT NULL,
-[PersonId] int not null FOREIGN KEY REFERENCES Person(Id),
+[PersonId] int NOT NULL FOREIGN KEY REFERENCES Person(Id),
 PRIMARY KEY(Id)
 )
 
