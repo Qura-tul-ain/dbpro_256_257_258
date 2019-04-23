@@ -1,14 +1,14 @@
 use [DB43]
 
 CREATE TABLE [Person](
-[Id]int NOT NULL PRIMARY KEY,
-[LastName]varchar(30) NOT NULL,
-[FirstName]varchar(30) NOT NULL,
+[Id] int NOT NULL PRIMARY KEY,
+[LastName] varchar(30) NOT NULL,
+[FirstName] varchar(30) NOT NULL,
 [Contact] varchar(20) NOT NULL UNIQUE,
 [Email] varchar(20) NOT NULL UNIQUE,
 [Gender] varchar(20) NOT NULL,
 [Password] nvarchar(128) NOT NULL,
-[Discriminator]Date NOT NULL,
+[Discriminator] varchar(50) NOT NULL ,
 
 )
 
@@ -23,7 +23,6 @@ CREATE TABLE [Course](
 [Id] int NOT NULL PRIMARY KEY,
 [Title] varchar(30) NOT NULL,
 [Credits] varchar(30) NOT NULL,
-[Email] varchar(20) NOT NULL UNIQUE,
 [Fee] Decimal NOT NULL
 
 )
@@ -45,7 +44,7 @@ CREATE TABLE [StudentRegisterCourse](
 [Id] int NOT NULL,
 [CourseId] int not null FOREIGN KEY REFERENCES Student(Id),
 [StudentId] int not null FOREIGN KEY REFERENCES Student(Id),
-PRIMARY KEY(Id)
+PRIMARY KEY(Id, CourseId, StudentId)
 )
 
 CREATE TABLE [Quiz](
@@ -100,6 +99,7 @@ CREATE TABLE [Announcement](
 [Id] int NOT NULL,
 [Text] varchar(300) NOT NULL,
 [PersonId] int NOT NULL FOREIGN KEY REFERENCES Person(Id),
+[CourseId] int NOT NULL FOREIGN KEY REFERENCES Course(Id),
 PRIMARY KEY(Id)
 )
 
