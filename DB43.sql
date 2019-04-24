@@ -5,18 +5,19 @@ CREATE TABLE [Person](
 [LastName] varchar(30) NOT NULL,
 [FirstName] varchar(30) NOT NULL,
 [Contact] varchar(20) NOT NULL UNIQUE,
-[Email] varchar(20) NOT NULL UNIQUE,
+[Email] varchar(30) NOT NULL UNIQUE,
 [Gender] varchar(20) NOT NULL,
-[Password] nvarchar(128) NOT NULL,
+[Password] nvarchar(20) NOT NULL,
 [Discriminator] varchar(50) NOT NULL ,
 
 )
 
 CREATE TABLE [Instructor](
-[InstructorId] int NOT NULL FOREIGN KEY REFERENCES Person(Id),
+[InstructorId] int NOT NULL PRIMARY KEY IDENTITY,
 [Qualification] varchar(30) NOT NULL,
 [HireDate] Date NOT NULL,
-PRIMARY KEY(InstructorId)
+[PersonId] int NOT NULL FOREIGN KEY REFERENCES Person(Id)
+
 )
 
 CREATE TABLE [Course](
