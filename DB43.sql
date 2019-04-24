@@ -21,7 +21,7 @@ PRIMARY KEY(InstructorId)
 
 CREATE TABLE [Course](
 [Id] int NOT NULL PRIMARY KEY IDENTITY,
-[Title] varchar(30) NOT NULL,
+[Title] varchar(30) NOT NULL UNIQUE,
 [Credits] varchar(30) NOT NULL,
 [Fee] Decimal NOT NULL
 
