@@ -201,6 +201,9 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="AssignInstructor.cs">
+      <DependentUpon>DB43.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -601,6 +604,7 @@
     <Content Include="Views\Register\Register.cshtml" />
     <Content Include="Views\Register\Login.cshtml" />
     <Content Include="Views\Register\LoggedIn.cshtml" />
+    <Content Include="Views\Register\RegisterTeacher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

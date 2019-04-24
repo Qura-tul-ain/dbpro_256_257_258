@@ -99,10 +99,12 @@ namespace DB43.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Required]
+      
         [Display(Name = "Discriminator")]
         public string Discriminator { get; set; }
 
+
+        public string Qualification { get; set; }
     }
 
     public class ResetPasswordViewModel
