@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c812c842665f443bbf4a1e706db36a67" Name="Diagram1">
+        <EntityTypeShape EntityType="DB43Model.Announcement" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB43Model.CorrectOption" Width="1.5" PointX="5.25" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB43Model.Course" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB43Model.Instructor" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB43Model.Option" Width="1.5" PointX="5.25" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB43Model.Person" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB43Model.Question" Width="1.5" PointX="3" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB43Model.Quiz" Width="1.5" PointX="0.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB43Model.Student" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB43Model.StudentRegisterCourse" Width="1.5" PointX="5.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB43Model.StudentResult" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <AssociationConnector Association="DB43Model.FK__Announcem__Cours__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="DB43Model.FK__Announcem__Perso__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="DB43Model.FK__CorrectOp__Quest__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="DB43Model.FK__Quiz__CourseId__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="DB43Model.FK__Instructo__Perso__145C0A3F" ManuallyRouted="false" />
+        <AssociationConnector Association="DB43Model.FK__Options__Questio__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="DB43Model.FK__Student__PersonI__1DE57479" ManuallyRouted="false" />
+        <AssociationConnector Association="DB43Model.FK__Questions__QuizI__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="DB43Model.FK__StudentRe__Quest__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="DB43Model.FK__StudentRe__Cours__20C1E124" ManuallyRouted="false" />
+        <AssociationConnector Association="DB43Model.FK__StudentRe__Stude__21B6055D" ManuallyRouted="false" />
+        <AssociationConnector Association="DB43Model.FK__StudentRe__Stude__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="DB43Model.AssignInstructor" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

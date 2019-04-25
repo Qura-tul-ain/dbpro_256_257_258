@@ -1,0 +1,43 @@
+﻿
+
+@model DB43.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>@ViewBag.Title.</h2>
+<center>
+    @using (Html.BeginForm("Login", "Register", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4>Create a new account.</h4>
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+     
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+            @Html.TextBoxFor(m => m.Email)
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+            @Html.PasswordFor(m => m.Password)
+        </div>
+
+     
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Login" />
+            </div>
+        </div>
+    }
+
+</center>
+
+
+
+
+
