@@ -1,5 +1,12 @@
 use [DB43]
 
+
+CREATE TABLE [Department](
+[Id] int NOT NULL PRIMARY KEY IDENTITY,
+[Name] varchar(30) NOT NULL,
+
+)
+
 CREATE TABLE [Person](
 [Id] int NOT NULL PRIMARY KEY IDENTITY,
 [LastName] varchar(30) NOT NULL,
@@ -23,8 +30,8 @@ CREATE TABLE [Course](
 [Id] int NOT NULL PRIMARY KEY IDENTITY,
 [Title] varchar(30) NOT NULL,
 [Credits] varchar(30) NOT NULL,
-[Fee] Decimal NOT NULL
-
+[Fee] Decimal NOT NULL,
+[DepartmentId] int NOT NULL FOREIGN KEY REFERENCES Department(Id)
 )
 CREATE TABLE [AssignInstructor](
 [InstructorId] int NOT NULL FOREIGN KEY REFERENCES Instructor(InstructorId),
@@ -43,6 +50,7 @@ CREATE TABLE [Student](
 
 CREATE TABLE [StudentRegisterCourse](
 [Id] int NOT NULL PRIMARY KEY IDENTITY ,
+[DepartmentId]  int not null FOREIGN KEY REFERENCES Department(Id),
 [CourseId] int not null FOREIGN KEY REFERENCES Student(Id),
 [StudentId] int not null FOREIGN KEY REFERENCES Student(Id),
 )
