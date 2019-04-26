@@ -12,28 +12,21 @@ namespace DB43
     using System;
     using System.Collections.Generic;
     
-    public partial class Person
+    public partial class Department
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Person()
+        public Department()
         {
-            this.Announcements = new HashSet<Announcement>();
-            this.Students = new HashSet<Student>();
+            this.Courses = new HashSet<Course>();
+            this.StudentRegisterCourses = new HashSet<StudentRegisterCourse>();
         }
     
         public int Id { get; set; }
-        public string LastName { get; set; }
-        public string FirstName { get; set; }
-        public string Contact { get; set; }
-        public string Email { get; set; }
-        public string Gender { get; set; }
-        public string Password { get; set; }
-        public string Discriminator { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Announcement> Announcements { get; set; }
-        public virtual Instructor Instructor { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<StudentRegisterCourse> StudentRegisterCourses { get; set; }
     }
 }

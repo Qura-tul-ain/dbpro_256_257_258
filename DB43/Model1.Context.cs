@@ -13,10 +13,10 @@ namespace DB43
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DB433Entities1 : DbContext
+    public partial class DB43Entities : DbContext
     {
-        public DB433Entities1()
-            : base("name=DB433Entities1")
+        public DB43Entities()
+            : base("name=DB43Entities")
         {
         }
     
@@ -28,6 +28,7 @@ namespace DB43
         public virtual DbSet<Announcement> Announcements { get; set; }
         public virtual DbSet<CorrectOption> CorrectOptions { get; set; }
         public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Instructor> Instructors { get; set; }
         public virtual DbSet<Option> Options { get; set; }
         public virtual DbSet<Person> People { get; set; }

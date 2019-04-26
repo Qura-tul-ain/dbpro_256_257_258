@@ -13,7 +13,7 @@ namespace DB43.Controllers
         // GET: Register
         public ActionResult Index()
         {
-            using (DB433Entities1 db = new DB433Entities1())
+            using (DB43Entities db = new DB43Entities())
             {
                 return View(db.People.ToList());
             }
@@ -29,7 +29,7 @@ namespace DB43.Controllers
         public ActionResult Register(RegisterViewModel obj)
         {
 
-            DB433Entities1 db2 = new DB433Entities1();
+            DB43Entities db2 = new DB43Entities();
             if (ModelState.IsValid)
             {
 
@@ -43,7 +43,7 @@ namespace DB43.Controllers
 				person.Discriminator = "Student";
                 person.Password = obj.Password;
 
-				using (DB433Entities1 db = new DB433Entities1())
+				using (DB43Entities db = new DB43Entities())
 				{
 					db.People.Add(person);
 					db.SaveChanges();
@@ -60,7 +60,7 @@ namespace DB43.Controllers
             student.PersonId = id;
             student.EnrollmentDate = DateTime.Now;
             student.Status = "InActive";
-            using (DB433Entities1 db = new DB433Entities1())
+            using (DB43Entities db = new DB43Entities())
             {
 
                 try
@@ -93,7 +93,7 @@ namespace DB43.Controllers
         [HttpPost]
         public ActionResult Login(RegisterViewModel obj)
         {
-            using (DB433Entities1 db = new DB433Entities1())
+            using (DB43Entities db = new DB43Entities())
             {
                 var user = db.People.Single(u => u.Email == obj.Email && u.Password == obj.Password);
               if(user !=null )
@@ -136,7 +136,7 @@ namespace DB43.Controllers
         [HttpPost]
         public ActionResult RegisterTeacher(RegisterViewModel obj)
         {
-            DB433Entities1 db2 = new DB433Entities1();
+            DB43Entities db2 = new DB43Entities();
 
             if (ModelState.IsValid)
             {
@@ -153,7 +153,7 @@ namespace DB43.Controllers
 
                 //   person.Id = db2.People.Count() + 1;
 
-                using (DB433Entities1 db = new DB433Entities1())
+                using (DB43Entities db = new DB43Entities())
                 {
                     try
                     {
@@ -176,11 +176,11 @@ namespace DB43.Controllers
             var use = db2.People.Single(u => u.Email == obj.Email);
             int Tid = use.Id;
             var instructor = new Instructor();
-            instructor.PersonId = Tid;
+            instructor.InstructorId = Tid;
             instructor.Qualification = obj.Qualification;
             instructor.HireDate = DateTime.Now;
           
-            using (DB433Entities1 db = new DB433Entities1())
+            using (DB43Entities db = new DB43Entities())
             {
 
                 try

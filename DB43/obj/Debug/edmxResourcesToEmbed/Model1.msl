@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="DB43ModelStoreContainer" CdmEntityContainer="DB433Entities1">
+  <EntityContainerMapping StorageEntityContainer="DB43ModelStoreContainer" CdmEntityContainer="DB43Entities">
     <EntitySetMapping Name="Announcements">
       <EntityTypeMapping TypeName="DB43Model.Announcement">
         <MappingFragment StoreEntitySet="Announcement">
@@ -29,6 +29,15 @@
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Credits" ColumnName="Credits" />
           <ScalarProperty Name="Fee" ColumnName="Fee" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="DB43Model.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -38,7 +47,6 @@
           <ScalarProperty Name="InstructorId" ColumnName="InstructorId" />
           <ScalarProperty Name="Qualification" ColumnName="Qualification" />
           <ScalarProperty Name="HireDate" ColumnName="HireDate" />
-          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -105,6 +113,7 @@
       <EntityTypeMapping TypeName="DB43Model.StudentRegisterCourse">
         <MappingFragment StoreEntitySet="StudentRegisterCourse">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
           <ScalarProperty Name="CourseId" ColumnName="CourseId" />
           <ScalarProperty Name="StudentId" ColumnName="StudentId" />
         </MappingFragment>

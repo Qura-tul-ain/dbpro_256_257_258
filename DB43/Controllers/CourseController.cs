@@ -10,7 +10,7 @@ namespace DB43.Controllers
 {
     public class CourseController : Controller
     {
-		DB433Entities1 db = new DB433Entities1();
+		DB43Entities db = new DB43Entities();
 		
 		public ActionResult CourseRegister(int id)
 		{

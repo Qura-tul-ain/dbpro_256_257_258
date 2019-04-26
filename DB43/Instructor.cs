@@ -23,7 +23,6 @@ namespace DB43
         public int InstructorId { get; set; }
         public string Qualification { get; set; }
         public System.DateTime HireDate { get; set; }
-        public int PersonId { get; set; }
     
         public virtual Person Person { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
