@@ -4,7 +4,7 @@ use [DB43]
 CREATE TABLE [Department](
 [Id] int NOT NULL PRIMARY KEY IDENTITY,
 [Name] varchar(30) NOT NULL,
-
+[Image] varchar(MAX) NULL,
 )
 
 CREATE TABLE [Person](
@@ -31,7 +31,8 @@ CREATE TABLE [Course](
 [Title] varchar(30) NOT NULL,
 [Credits] varchar(30) NOT NULL,
 [Fee] Decimal NOT NULL,
-[DepartmentId] int NOT NULL FOREIGN KEY REFERENCES Department(Id)
+[DepartmentId] int NOT NULL FOREIGN KEY REFERENCES Department(Id),
+[CourseImage] varchar(MAX) NULL,
 )
 CREATE TABLE [AssignInstructor](
 [InstructorId] int NOT NULL FOREIGN KEY REFERENCES Instructor(InstructorId),
