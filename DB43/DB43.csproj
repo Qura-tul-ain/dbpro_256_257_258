@@ -55,8 +55,10 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -202,6 +204,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddCourseController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -238,8 +241,10 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AddCourseViewModel.cs" />
+    <Compile Include="Models\AssignmentViewModel.cs" />
     <Compile Include="Models\CourseViewModels.cs" />
-    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\DepartmentViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RegisterCourseViewModels.cs" />
@@ -613,15 +618,26 @@
     <Content Include="Views\Course\Index.cshtml" />
     <Content Include="Views\Course\CourseRegister.cshtml" />
     <Content Include="Views\Course\Details.cshtml" />
-    <Content Include="Views\Departments\Create.cshtml" />
     <Content Include="Views\Departments\Delete.cshtml" />
     <Content Include="Views\Departments\Details.cshtml" />
     <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Shared\Adminlayout.cshtml" />
     <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\AddCourse\Create.cshtml" />
+    <Content Include="Views\AddCourse\Index.cshtml" />
+    <Content Include="Views\Shared\_StudentLayout.cshtml" />
+    <Content Include="Views\Register\IndexStudent.cshtml" />
+    <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\Register\PersonalData.cshtml" />
+    <Content Include="Views\Register\TeacherData.cshtml" />
+    <Content Include="Views\AddCourse\AllInstructors.cshtml" />
+    <Content Include="Views\AddCourse\AllCourses.cshtml" />
+    <Content Include="Views\AddCourse\InstructorWithCourses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\CourseRegister\" />
+    <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

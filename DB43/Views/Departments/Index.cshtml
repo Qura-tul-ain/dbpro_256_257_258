@@ -1,34 +1,94 @@
-﻿@model IEnumerable<DB43.Department>
+﻿
+@model IEnumerable<DB43.Models.DepartmentViewModel>
+    @{
+        ViewBag.Title = "Index";
+        Layout = "~/Views/Shared/Adminlayout.cshtml";
+    }
 
-@{
-    ViewBag.Title = "Index";
-}
+    <h2>Index</h2>
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Add Course", "Delete", new { id=item.Id })
+    <div class="sec-title p-b-60">
+        <h3 class="m-text5 t-center">
+               DEPARTMENTS
+        </h3>
+    </div>
 
-        </td>
-    </tr>
-}
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-4">
+            <div class="block-19">
+                <figure>
+                    <img src="@Url.Content(item.Image)" height="350" width="450" class="img-fluid" />
+                </figure>
+                <div class="text">
+                    <h2 class="heading"><a href="#">@item.Name</a></h2>
+                    <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+                    <div class="meta d-flex align-items-center">
+                       
+                            <a href="~/AddCourse/Get_Id/@item.Id" class="price text-right"><span>Add Course</span></a>
+                  
+                     
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    </div>
 
-</table>
+
+
+
+
+
+        @*<div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-4">
+                    <div style="margin-bottom:20px">
+                        <img src="@Url.Content(item.Image)" height="350" width="450" />
+                        <a href="~/products/Details/@item.Id" class="btn btn-default">Explore</a>
+                    </div>
+                    <div class="caption">
+                        <h3>
+                            @*@*@*@Html.ActionLink(@item.ProductName, "Details", new { id = item.ImageId })*@*@*@
+                            @*<a href="~/products/Details/@item.Id" class="btn btn-default">Explore</a>*@
+
+                        @*</h3>
+                        <br />
+                    </div>
+
+                </div>
+            }
+        </div>*@
+
+
+
+        @*<div>
+                <h4>DepartmentViewModel</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Image)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Image)
+                    </dd>
+
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                @Html.ActionLink("Back to List", "Index")
+            </p>*@

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,14 +11,139 @@ namespace DB43.Controllers
 {
     public class RegisterController : Controller
     {
-        // GET: Register
+
+        public string connection = " Data Source = DESKTOP-G0K5DQK; Initial Catalog = DB43; Integrated Security = True";
+        public static int id;
+        public static int loginId;
+        public static int DeptId;
+        public static int no;
+        public ActionResult Get_Id(int id)
+        {
+
+            DeptId = id;
+
+            return RedirectToAction("Index");
+        }
+
+        // GET: AddCourse
         public ActionResult Index()
         {
-            using (DB43Entities db = new DB43Entities())
+            SqlConnection conn = new SqlConnection(connection);
+            //Open the connection to db
+            conn.Open();
+            string query;
+            SqlCommand SqlCommand;
+
+            List<AddCourseViewModels> lists = new List<AddCourseViewModels>();
+
+            //Generating the query to fetch the contact details
+            query = " SELECT * FROM Course where DepartmentId= ' " + DeptId + "' ";
+
+            SqlCommand = new SqlCommand(query, conn);
+            SqlDataReader rdr = SqlCommand.ExecuteReader();
+            while (rdr.Read())
             {
-                return View(db.People.ToList());
+                var dpt = new AddCourseViewModels();
+                dpt.Id = Convert.ToInt32(rdr[0]);
+                dpt.Title = rdr[1].ToString();
+                dpt.Credits = rdr[2].ToString();
+                dpt.Fee = Convert.ToInt32(rdr[3]);
+                dpt.DepartmentId = Convert.ToInt32(rdr[4]);
+                dpt.CourseImage = rdr[5].ToString();
+                lists.Add(dpt);
             }
 
+            return View(lists);
+        }
+
+        public ActionResult IndexStudent()
+        {
+            SqlConnection conn = new SqlConnection(connection);
+            string query;
+            SqlCommand SqlCommand;
+
+            List<DepartmentViewModel> lists = new List<DepartmentViewModel>();
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            //Open the connection to db
+            conn.Open();
+
+            //Generating the query to fetch the contact details
+            query = " SELECT * FROM Department ";
+
+            SqlCommand = new SqlCommand(query, conn);
+            SqlDataReader rdr = SqlCommand.ExecuteReader();
+            while (rdr.Read())
+            {
+                var dpt = new DepartmentViewModel();
+                dpt.Id = Convert.ToInt32(rdr[0]);
+                dpt.Name = rdr[1].ToString();
+                dpt.Image = rdr[2].ToString();
+                lists.Add(dpt);
+            }
+
+            return View(lists);
+
+        }
+
+        public ActionResult PersonalData()
+        {
+            if (no == 1)
+            {
+                SqlConnection con = new SqlConnection(connection);
+                con.Open();
+
+                List<RegisterViewModel> lists = new List<RegisterViewModel>();
+                string query = "SELECT FirstName,LastName,Contact,Email,Gender,RegistrationNumber from person inner join student on Person.Id=Student.PersonId and Person.Id='"+ loginId+"'";
+                SqlCommand cmd = new SqlCommand(query, con);
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while(rdr.Read())
+                {
+                    var std = new RegisterViewModel();
+                    std.FirstName = rdr[0].ToString();
+                    std.LastName = rdr[1].ToString();
+                    std.Contact=rdr[2].ToString();
+                    std.Email = rdr[3].ToString();
+                    std.Gender = rdr[4].ToString();
+                    std.RegistrationNumber = rdr[5].ToString();
+                    lists.Add(std) ;
+                }
+                rdr.Close();
+                return View(lists);
+            }
+
+           else 
+            {
+                SqlConnection con = new SqlConnection(connection);
+                con.Open();
+
+                List<RegisterViewModel> lists = new List<RegisterViewModel>();
+                string query = "SELECT FirstName,LastName,Contact,Email,Gender,Qualification from Person inner join Instructor on Person.Id=Instructor.InstructorId and Person.Id='" + loginId + "'";
+                SqlCommand cmd = new SqlCommand(query, con);
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    var std = new RegisterViewModel();
+                    std.FirstName = rdr[0].ToString();
+                    std.LastName = rdr[1].ToString();
+                    std.Contact = rdr[2].ToString();
+                    std.Email = rdr[3].ToString();
+                    std.Gender= rdr[4].ToString();
+                    std.Qualification = rdr[5].ToString();
+                    lists.Add(std);
+                }
+                rdr.Close();
+                return RedirectToAction("TeacherData", new { list=lists});
+            }
+           
+
+
+        }
+
+
+        public ActionResult TeacherData(List<RegisterViewModel> list)
+        {
+            return View(list);
         }
 
 
@@ -28,59 +154,42 @@ namespace DB43.Controllers
         [HttpPost]
         public ActionResult Register(RegisterViewModel obj)
         {
-
-            DB43Entities db2 = new DB43Entities();
-            if (ModelState.IsValid)
+            
+            try
             {
+                SqlConnection con = new SqlConnection(connection);
+                con.Open();
+                string query = "INSERT INTO Person(LastName,FirstName,Contact,Email,Gender,Password,Discriminator)VALUES ('" + obj.LastName + "','" + obj.FirstName + "','" + obj.Contact + "','" + obj.Email + "','" + obj.Gender + "','" + obj.Password + "','" + "Student"+ "')";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.ExecuteNonQuery();
+                    string q = "SELECT * from Person where Email='" + obj.Email + "'  ";
+                    SqlCommand cmdForId = new SqlCommand(q, con);
+                    SqlDataReader rdr = cmdForId.ExecuteReader();
 
-                var person = new Person();
-                person.FirstName = obj.FirstName;
-                person.LastName = obj.LastName;
-                person.Contact = obj.Contact;
-                person.Email = obj.Email;
-                person.Gender = obj.Gender;
-				// person.Discriminator = obj.Discriminator;
-				person.Discriminator = "Student";
-                person.Password = obj.Password;
-
-				using (DB43Entities db = new DB43Entities())
-				{
-					db.People.Add(person);
-					db.SaveChanges();
-				}
+                    while (rdr.Read())
+                    {
+                        id = Convert.ToInt32(rdr[0]);
+                    }
+                    rdr.Close();
+                    con.Close();
+                        string RegNo = "IMS_" + id;
+                        string st = "InActive";
+                    // put reg no check here
+                        DateTime date = DateTime.Now;
+                con.Open();
+                string studentquery = "INSERT INTO Student(RegistrationNumber,EnrollmentDate,Status,PersonId)VALUES ('" + RegNo + "','" + date + "','" + st + "','" + id + "')";
+                        SqlCommand cmd2 = new SqlCommand(studentquery, con);
+                        cmd2.ExecuteNonQuery();
                 
+
                 ModelState.Clear();
-                ViewBag.Message =person.FirstName + " " + person.LastName +  "Successfully Registered";
+                ViewBag.Message = obj.FirstName + " " + obj.LastName + "Successfully Registered";
+                return RedirectToAction("Login");
             }
-            var Get_Student = db2.People.Single(u => u.Email == obj.Email);
-
-            int id = Get_Student.Id ;
-            var student = new Student();
-            student.RegistrationNumber = "IMS_" + id;
-            student.PersonId = id;
-            student.EnrollmentDate = DateTime.Now;
-            student.Status = "InActive";
-            using (DB43Entities db = new DB43Entities())
+            catch(Exception ex)
             {
-
-                try
-                {
-                    db.Students.Add(student);
-                    db.SaveChanges();
-
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    // Retrieve the error messages as a list of strings.
-                    var errorMessages = ex.EntityValidationErrors
-                    .SelectMany(x => x.ValidationErrors)
-                    .Select(x => x.ErrorMessage);
-
-                    //throw the error messages.
-                }
+                return View(ex);
             }
-
-            return View();
         }
 
 
@@ -93,23 +202,39 @@ namespace DB43.Controllers
         [HttpPost]
         public ActionResult Login(RegisterViewModel obj)
         {
-            using (DB43Entities db = new DB43Entities())
-            {
-                var user = db.People.Single(u => u.Email == obj.Email && u.Password == obj.Password);
-              if(user !=null )
-                {
-                    Session["Id"] = user.Id.ToString();
-                    Session["Email"] = user.Email.ToString();
-                    return RedirectToAction("LoggedIn");
 
-                }
-                else
+            SqlConnection con = new SqlConnection(connection);
+            con.Open();
+            string q = "SELECT * from Person where Email='" + obj.Email + "' and Password='"+ obj.Password+"' ";
+            SqlCommand cmdForId = new SqlCommand(q, con);
+            SqlDataReader rdr = cmdForId.ExecuteReader();
+            while(rdr.Read())
+            {
+                if (rdr[7].ToString() == " Student")
                 {
-                    ModelState.AddModelError("", "Email or password is wrong");
+                    loginId = Convert.ToInt32(rdr[0]);
+                    no = 1;
+                    return RedirectToAction("IndexStudent");
                 }
-             
+                else if (rdr[7].ToString() == "Teacher")
+                {
+                    loginId = Convert.ToInt32(rdr[0]);
+                    no = 0;
+                    return RedirectToAction("Index", "Departments");
+                }
+                else if (rdr[7].ToString() == "Admin")
+                {
+                    no = 2;
+                    loginId = Convert.ToInt32(rdr[0]);
+                    return RedirectToAction("Index", "Departments");
+                }
+
             }
-            return View();
+            rdr.Close();
+            ViewBag.Message("Incorrect password or Email ,please try again");
+            return View(obj);
+
+          
         }
 
 
@@ -136,76 +261,45 @@ namespace DB43.Controllers
         [HttpPost]
         public ActionResult RegisterTeacher(RegisterViewModel obj)
         {
-            DB43Entities db2 = new DB43Entities();
-
-            if (ModelState.IsValid)
+            try
             {
+                  SqlConnection con = new SqlConnection(connection);
+                  con.Open();
+                string query = "INSERT INTO Person(LastName,FirstName,Contact,Email,Gender,Password,Discriminator)VALUES ('" + obj.LastName + "','" + obj.FirstName + "','" + obj.Contact + "','" + obj.Email + "','" + obj.Gender + "','" + obj.Password + "','" + "Teacher" + "')";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.ExecuteNonQuery();
+                    string q = "SELECT Id from Person where Email='" + obj.Email + "'  ";
+                    SqlCommand cmdForId = new SqlCommand(q, con);
+                    SqlDataReader rdr = cmdForId.ExecuteReader();
 
-                var person = new Person();
-                person.FirstName = obj.FirstName;
-                person.LastName = obj.LastName;
-                person.Contact = obj.Contact;
-                person.Email = obj.Email;
-                person.Gender = obj.Gender;
-                person.Discriminator = "Teacher";
-                person.Password = obj.Password;
-                person.Id = 10;
-
-                //   person.Id = db2.People.Count() + 1;
-
-                using (DB43Entities db = new DB43Entities())
-                {
-                    try
+                    while (rdr.Read())
                     {
-                        db.People.Add(person);
-                        db.SaveChanges();
-                        ModelState.Clear();
-                        ViewBag.Message = person.FirstName + " " + person.LastName + "Successfully Registered";
+                        id = Convert.ToInt32(rdr[0]);
                     }
-                    catch (DbEntityValidationException ex)
-                    {
-                        // Retrieve the error messages as a list of strings.
-                        var errorMessages = ex.EntityValidationErrors
-                        .SelectMany(x => x.ValidationErrors)
-                        .Select(x => x.ErrorMessage);
+                rdr.Close();
+                con.Close();
 
-                        //throw the error messages.
-                    }
-                }
+                // put reg no check here
+                DateTime date = DateTime.Now;
+                con.Open();
+                    string studentquery = "INSERT INTO Instructor(InstructorId,Qualification,HireDate)VALUES ('" + id + "','" + obj.Qualification+ "','" + date + "')";
+                    SqlCommand cmd2 = new SqlCommand(studentquery, con);
+                    cmd2.ExecuteNonQuery();
+                
+
+                ModelState.Clear();
+                ViewBag.Message = obj.FirstName + " " + obj.LastName + "Successfully Registered";
+                return RedirectToAction("Login");
             }
-            var use = db2.People.Single(u => u.Email == obj.Email);
-            int Tid = use.Id;
-            var instructor = new Instructor();
-            instructor.InstructorId = Tid;
-            instructor.Qualification = obj.Qualification;
-            instructor.HireDate = DateTime.Now;
-          
-            using (DB43Entities db = new DB43Entities())
+            catch (Exception ex)
             {
+                return View(ex);
 
-                try
-                {
-                    db.Instructors.Add(instructor);
-                    db.SaveChanges();
-
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    // Retrieve the error messages as a list of strings.
-                    var errorMessages = ex.EntityValidationErrors
-                    .SelectMany(x => x.ValidationErrors)
-                    .Select(x => x.ErrorMessage);
-
-                    //throw the error messages.
-                }
             }
 
-            return View();
+
+
         }
-
-
-
-
 
     }
 }

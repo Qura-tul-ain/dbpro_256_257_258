@@ -103,7 +103,7 @@ namespace DB43.Models
         [Display(Name = "Discriminator")]
         public string Discriminator { get; set; }
 
-
+        public string RegistrationNumber { get; set; }
         public string Qualification { get; set; }
     }
 
