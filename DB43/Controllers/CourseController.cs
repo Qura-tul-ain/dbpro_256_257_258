@@ -23,17 +23,18 @@ namespace DB43.Controllers
 
 			//g.DepartmentId = 
 			//var user = db.People.
-			var Get_Student = db.People.Single(u => u.Email == "nimra@gmail.com");
+			var Get_Student = db.People.Single(u => u.Email == "farah@gmail.com");
 			g.StudentId = Get_Student.Id;
 			db.StudentRegisterCourses.Add(g);
 			db.SaveChanges();
 			return View("CourseRegister");
 		}
 		// GET: Course
-		public ActionResult Index()
+		public ActionResult Index(int id)
 		{
-			var Get_Student = db.People.Single(u => u.Email == "nimra@gmail.com");
+			var Get_Student = db.People.Single(u => u.Email == "farah@gmail.com");
 
+			List<Department> List3 = db.Departments.ToList();
 			List<Course> List1 = db.Courses.ToList();
 			List<CourseViewModels> viewList = new List<CourseViewModels>();
 			List<Course> List2 = db.Courses.ToList();
@@ -59,7 +60,7 @@ namespace DB43.Controllers
 					obj.Fee = c.Fee;
 					foreach (Department t in d)
 					{
-						if (c.DepartmentId == t.Id)
+						if (c.DepartmentId == id)
 						{
 							obj.DepartmentName = t.Name;
 						}
@@ -69,6 +70,7 @@ namespace DB43.Controllers
 
 
 			}
+			
 			return View(viewList);
 			//return View(viewList);
 		}

@@ -12,8 +12,9 @@ namespace DB43.Controllers
     public class RegisterController : Controller
     {
 
-        public string connection = " Data Source = DESKTOP-G0K5DQK; Initial Catalog = DB43; Integrated Security = True";
-        public static int id;
+
+		public string connection = "Data Source=DESKTOP-GP94IEM\\SQLEXPRESS;Initial Catalog=DB43;Integrated Security=True";
+		public static int id;
         public static int loginId;
         public static int DeptId;
         public static int no;
@@ -210,7 +211,7 @@ namespace DB43.Controllers
             SqlDataReader rdr = cmdForId.ExecuteReader();
             while(rdr.Read())
             {
-                if (rdr[7].ToString() == " Student")
+                if (rdr[7].ToString() == "Student")
                 {
                     loginId = Convert.ToInt32(rdr[0]);
                     no = 1;
