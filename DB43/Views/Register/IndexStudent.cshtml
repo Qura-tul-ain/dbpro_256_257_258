@@ -1,0 +1,35 @@
+﻿
+@model IEnumerable <DB43.Models.DepartmentViewModel>
+@{
+    ViewBag.Title = "IndexStudent";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+<div class="sec-title p-b-60">
+    <h3 class="m-text5 t-center">
+        DEPARTMENTS
+    </h3>
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-4">
+            <div class="block-19">
+                <figure>
+                    <img src="@Url.Content(item.Image)" height="350" width="450" class="img-fluid" />
+                </figure>
+                <div class="text">
+                    <h2 class="heading">@item.Name</h2>
+                    <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+                    <div class="meta d-flex align-items-center">
+            
+                        <a href="~/Register/Get_Id/@item.Id" class="price text-right"><span>View Course</span></a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
