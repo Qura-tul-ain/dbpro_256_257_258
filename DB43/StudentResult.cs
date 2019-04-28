@@ -22,6 +22,5 @@ namespace DB43
         public double Marks { get; set; }
     
         public virtual Question Question { get; set; }
-        public virtual Student Student { get; set; }
     }
 }

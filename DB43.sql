@@ -12,7 +12,7 @@ CREATE TABLE [Person](
 [LastName] varchar(30) NOT NULL,
 [FirstName] varchar(30) NOT NULL,
 [Contact] varchar(20) NOT NULL UNIQUE,
-[Email] varchar(20) NOT NULL UNIQUE,
+[Email] varchar(50) NOT NULL UNIQUE,
 [Gender] varchar(20) NOT NULL,
 [Password] nvarchar(128) NOT NULL,
 [Discriminator] varchar(50) NOT NULL ,
@@ -45,15 +45,15 @@ CREATE TABLE [Student](
 [RegistrationNumber] varchar(30) NOT NULL UNIQUE,
 [EnrollmentDate] Date NOT NULL,
 [Status] varchar(20) NOT NULL,
-[PersonId] int NOT NULL FOREIGN KEY REFERENCES Person(Id),
+[PersonId] int NOT NULL FOREIGN KEY REFERENCES Person(Id) UNIQUE,
 
 )
 
 CREATE TABLE [StudentRegisterCourse](
 [Id] int NOT NULL PRIMARY KEY IDENTITY ,
 [DepartmentId]  int not null FOREIGN KEY REFERENCES Department(Id),
-[CourseId] int not null FOREIGN KEY REFERENCES Student(Id),
-[StudentId] int not null FOREIGN KEY REFERENCES Student(Id),
+[CourseId] int not null FOREIGN KEY REFERENCES Course(Id),
+[StudentId] int not null FOREIGN KEY REFERENCES Student(PersonId),
 )
 
 CREATE TABLE [Quiz](
@@ -68,9 +68,7 @@ CREATE TABLE [Quiz](
 create TABLE [Questions](
 [Id] int NOT NULL PRIMARY KEY IDENTITY,
 [Name] varchar(30) NOT NULL UNIQUE,
-[DateCreated] Date NOT NULL,
-[DateUpdated] Date NOT NULL,
-[TotalMarks] int NOT NULL,
+[TotalMarks] int NOT NULL DEFAULT(1),
 [QuizId] int NOT NULL FOREIGN KEY REFERENCES Quiz(Id),
 
 )
@@ -78,8 +76,7 @@ create TABLE [Questions](
 CREATE TABLE [Options](
 [Id] int NOT NULL PRIMARY KEY IDENTITY, 
 [OptionValue] varchar(30) NOT NULL UNIQUE,
-[DateCreated] Date NOT NULL,
-[DateUpdated] Date NOT NULL,
+
 [QuestionsId] int NOT NULL FOREIGN KEY REFERENCES Questions(Id),
 
 )
@@ -87,15 +84,13 @@ CREATE TABLE [Options](
 CREATE TABLE [CorrectOption](
 [Id] int NOT NULL PRIMARY KEY IDENTITY,
 [Correctvalue] varchar(30) NOT NULL UNIQUE,
-[DateCreated] Date NOT NULL,
-[DateUpdated] Date NOT NULL,
 [QuestionId] int NOT NULL FOREIGN KEY REFERENCES Questions(Id),
 
 )
 
 CREATE TABLE [StudentResult](
 [Id] int NOT NULL PRIMARY KEY IDENTITY,
-[StudentId] int not null FOREIGN KEY REFERENCES Student(Id),
+[StudentId] int not null FOREIGN KEY REFERENCES Student(PersonId),
 [QuestionId] int not null FOREIGN KEY REFERENCES Questions(Id),
 [EvalutionDate] Date NOT NULL,
 [Ans] varchar(30) NOT NULL,

@@ -14,14 +14,6 @@ namespace DB43
     
     public partial class Student
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Student()
-        {
-            this.StudentRegisterCourses = new HashSet<StudentRegisterCourse>();
-            this.StudentRegisterCourses1 = new HashSet<StudentRegisterCourse>();
-            this.StudentResults = new HashSet<StudentResult>();
-        }
-    
         public int Id { get; set; }
         public string RegistrationNumber { get; set; }
         public System.DateTime EnrollmentDate { get; set; }
@@ -29,11 +21,5 @@ namespace DB43
         public int PersonId { get; set; }
     
         public virtual Person Person { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StudentRegisterCourse> StudentRegisterCourses { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StudentRegisterCourse> StudentRegisterCourses1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StudentResult> StudentResults { get; set; }
     }
 }

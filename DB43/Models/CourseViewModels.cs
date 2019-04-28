@@ -13,5 +13,6 @@ namespace DB43.Models
 		public string Title { get; set; }
 		public string Credits { get; set; }
 		public decimal Fee { get; set; }
+		public string DepartmentName { get; set; }
 	}
 }

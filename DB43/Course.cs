@@ -19,6 +19,7 @@ namespace DB43
         {
             this.Announcements = new HashSet<Announcement>();
             this.Quizs = new HashSet<Quiz>();
+            this.StudentRegisterCourses = new HashSet<StudentRegisterCourse>();
             this.Instructors = new HashSet<Instructor>();
         }
     
@@ -27,12 +28,15 @@ namespace DB43
         public string Credits { get; set; }
         public decimal Fee { get; set; }
         public int DepartmentId { get; set; }
+        public string CourseImage { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Announcement> Announcements { get; set; }
         public virtual Department Department { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Quiz> Quizs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StudentRegisterCourse> StudentRegisterCourses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Instructor> Instructors { get; set; }
     }

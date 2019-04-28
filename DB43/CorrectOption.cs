@@ -16,8 +16,6 @@ namespace DB43
     {
         public int Id { get; set; }
         public string Correctvalue { get; set; }
-        public System.DateTime DateCreated { get; set; }
-        public System.DateTime DateUpdated { get; set; }
         public int QuestionId { get; set; }
     
         public virtual Question Question { get; set; }

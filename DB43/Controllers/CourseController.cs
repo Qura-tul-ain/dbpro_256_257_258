@@ -14,10 +14,16 @@ namespace DB43.Controllers
 		
 		public ActionResult CourseRegister(int id)
 		{
+			Course c = new Course();
+			c = db.Courses.Find(id);
+
 			StudentRegisterCourse g = new StudentRegisterCourse();
-			g.CourseId = id;
+			g.CourseId = c.Id;
+			g.DepartmentId = c.DepartmentId;
+
+			//g.DepartmentId = 
 			//var user = db.People.
-			var Get_Student = db.People.Single(u => u.Email == "aqsazahid938@gmail.com");
+			var Get_Student = db.People.Single(u => u.Email == "nimra@gmail.com");
 			g.StudentId = Get_Student.Id;
 			db.StudentRegisterCourses.Add(g);
 			db.SaveChanges();
@@ -26,13 +32,13 @@ namespace DB43.Controllers
 		// GET: Course
 		public ActionResult Index()
 		{
-			var Get_Student = db.People.Single(u => u.Email == "aqsazahid938@gmail.com");
+			var Get_Student = db.People.Single(u => u.Email == "nimra@gmail.com");
 
 			List<Course> List1 = db.Courses.ToList();
 			List<CourseViewModels> viewList = new List<CourseViewModels>();
 			List<Course> List2 = db.Courses.ToList();
 			List<StudentRegisterCourse> viewList2 = db.StudentRegisterCourses.ToList();
-			
+			List<Department> d = db.Departments.ToList();
 			foreach (Course c in List1)
 			{
 				bool f = false;
@@ -51,16 +57,23 @@ namespace DB43.Controllers
 					obj.Title = c.Title;
 					obj.Credits = c.Credits;
 					obj.Fee = c.Fee;
+					foreach (Department t in d)
+					{
+						if (c.DepartmentId == t.Id)
+						{
+							obj.DepartmentName = t.Name;
+						}
+					}
 					viewList.Add(obj);
 				}
 
-				
+
 			}
 			return View(viewList);
-			return View(viewList);
+			//return View(viewList);
 		}
 
-		
+
 
 		// GET: Course/Details/5
 		public ActionResult Details(int id)
