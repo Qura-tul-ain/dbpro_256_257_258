@@ -209,6 +209,7 @@
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="CorrectOption.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -245,8 +246,12 @@
     <Compile Include="Models\AssignmentViewModel.cs" />
     <Compile Include="Models\CourseViewModels.cs" />
     <Compile Include="Models\DepartmentViewModel.cs" />
+    <Compile Include="Models\FullQuizModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InstructorQuizViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OptionViewModel.cs" />
+    <Compile Include="Models\QuizQuestionsViewModel.cs" />
     <Compile Include="Models\RegisterCourseViewModels.cs" />
     <Compile Include="Option.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -404,7 +409,9 @@
     <Content Include="university\__MACOSX\university\js\._jquery.waypoints.min.js" />
     <Content Include="university\__MACOSX\university\js\._owl.carousel.min.js" />
     <Content Include="university\__MACOSX\university\js\._popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -634,6 +641,16 @@
     <Content Include="Views\AddCourse\AllInstructors.cshtml" />
     <Content Include="Views\AddCourse\AllCourses.cshtml" />
     <Content Include="Views\AddCourse\InstructorWithCourses.cshtml" />
+    <Content Include="Views\Quiz\Index.cshtml" />
+    <Content Include="Views\Quiz\Dep_Courses.cshtml" />
+    <Content Include="Views\Quiz\Dep_wise_course.cshtml" />
+    <Content Include="Views\Quiz\Create.cshtml" />
+    <Content Include="Views\Quiz\Quiz_Index.cshtml" />
+    <Content Include="Views\Quiz\Add_Question.cshtml" />
+    <Content Include="Views\Quiz\Q_Index.cshtml" />
+    <Content Include="Views\Quiz\Q_Options.cshtml" />
+    <Content Include="Views\Quiz\Create_options.cshtml" />
+    <Content Include="Views\Shared\LimitExceed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

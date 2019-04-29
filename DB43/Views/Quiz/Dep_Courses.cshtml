@@ -1,0 +1,31 @@
+﻿@model IEnumerable<DB43.Models.DepartmentViewModel>
+@{
+	ViewBag.Title = "Dep_Courses";
+	Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+
+<h2>Dep_Courses</h2>
+
+
+
+<div class="row">
+	@foreach (var item in Model)
+	{
+		<div class="col-sm-4">
+			<div class="block-19">
+
+				<div class="text">
+					<h2 class="heading">@item.Name</h2>
+					<p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+					<div class="meta d-flex align-items-center">
+
+						@*<button onclick="location.href='@Url.Action("Index", "Course", new { id = item.Id})';return false;" class="btn btn-default">View Course</button>*@
+						<button onclick="location.href='@Url.Action("Dep_wise_course", "Quiz", new { id = item.Id})';return false;" class="btn btn-default">Department Courses</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+</div>
