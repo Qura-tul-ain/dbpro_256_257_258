@@ -1,0 +1,21 @@
+﻿@model DB43.Models.OptionViewModel
+@{
+	ViewBag.Title = "Attempt_Quiz";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (Model.ischecked && Model.IsAnswer)
+	{
+		<div style="background-color:lightgreen">
+			@Html.RadioButton("Quiz.Questions[" + Model.QuestionsId + "]._option[0].Id", Model.OptionValue)
+			@Html.Label(Model.OptionValue)
+		</div>
+	}
+	else
+	{
+		@Html.RadioButton("Quiz.Questions[" + Model.QuestionsId + "]._option[0].Id", Model.OptionValue)
+		@Html.Label(Model.OptionValue)
+	}
+		<div>
+			@Html.ActionLink("Back to List", "Index")
+		</div>
+}

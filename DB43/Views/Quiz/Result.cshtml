@@ -1,0 +1,59 @@
+﻿@model DB43.Models.StudentQuizViewModel
+
+@{
+	ViewBag.Title = "Attempt_Quiz";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Quiz Result</h2>
+
+<div>
+	<h4>FullQuizModel</h4>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.Title)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Title)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.DateCreated)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.DateCreated)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.TotalMarks)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.TotalMarks)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.obtainedMarks)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.obtainedMarks)
+		</dd>
+		@*@foreach (var Q in Model.Questions)
+			{
+				<dd>
+					@Html.DisplayFor(model => Q.Name)
+					@for (int i = 0; i < Q._option.Count(); i++)
+					{
+					<dd>
+						@Html.RadioButtonFor(g => Q._option[i].IsAnswer, Q._option[i].Id)
+                        @Html.Label(Q._option[i].OptionValue)
+					</dd>
+				    }
+					</dd>
+				}*@
+
+</div>
+

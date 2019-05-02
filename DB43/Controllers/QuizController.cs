@@ -111,7 +111,12 @@ namespace DB43.Controllers
 				m.Id = d.Id;
 				m.Name = d.Name;
 				m.Image = d.Image;
-				dept_Model.Add(m);
+                dept_Model.Add(new DepartmentViewModel
+                {
+                    Id = m.Id,
+                    Name = m.Name,
+                    Image = m.Image
+                });
 			}
 			return View(dept_Model);
 		}
@@ -125,14 +130,21 @@ namespace DB43.Controllers
 			var dept = db.Departments.Find(id);
 			foreach (Course c in List2)
 			{
-				if (c.DepartmentId == id)
-				{
-					v.Id = c.Id;
-					v.Title = c.Title;
-					v.Credits = c.Credits;
-					v.Fee = c.Fee;
-					v.DepartmentName = dept.Name;
-					viewList2.Add(v);
+                if (c.DepartmentId == id)
+                {
+                    v.Id = c.Id;
+                    v.Title = c.Title;
+                    v.Credits = c.Credits;
+                    v.Fee = c.Fee;
+                    v.DepartmentName = dept.Name;
+                    viewList2.Add(new CourseViewModels
+                    {
+                        Id = v.Id,
+                        Title = v.Title,
+                        Credits = v.Credits,
+                        Fee = v.Fee,
+                        DepartmentName = v.DepartmentName
+                    });
 				}
 			}
 			return View(viewList2);
@@ -315,6 +327,7 @@ namespace DB43.Controllers
 					Option q = new Option();
 					q.QuestionsId = id;
 					q.OptionValue = model.OptionValue;
+					q.IsAnswer = Convert.ToString(model.IsAnswer);
 					db.Options.Add(q);
 					db.SaveChanges();
 
@@ -330,6 +343,94 @@ namespace DB43.Controllers
 				return View("LimitExceed");
 			}
 		}
+		public ActionResult Attempt_Quiz(int id)
+		{
+			var Quix = db.Quizs.Find(id);
+			List<Question> Q = db.Questions.ToList();
+			List<Option> O = db.Options.ToList();
+			List<OptionViewModel> h = new List<OptionViewModel>();
+			OptionViewModel n = new OptionViewModel();
+			foreach (Option i in O)
+			{
+				n.Id = i.Id;
+				n.IsAnswer = Convert.ToBoolean(i.IsAnswer);
+				n.ischecked = false;
+				n.OptionValue = i.OptionValue;
+				n.QuestionsId = i.QuestionsId;
+				h.Add(new OptionViewModel
+				{
+					Id = n.Id,
+					IsAnswer = n.IsAnswer,
+					ischecked = n.ischecked,
+					OptionValue = n.OptionValue,
+					QuestionsId = n.QuestionsId
+				});
+
+			}
+			List<StudentQuizViewModel> G = new List<StudentQuizViewModel>();
+			StudentQuizViewModel v = new StudentQuizViewModel();
+			v.Id = Quix.Id;
+			v.Title = Quix.Title;
+			v.TotalMarks = Quix.TotalMarks;
+			QuestionOptionModel b = new QuestionOptionModel();
+			foreach (Question q in Q)
+			{
+				if (q.QuizId == id)
+				{
+					b.Id = q.Id;
+					b.Q_TotalMarks = q.TotalMarks;
+					b.Name = q.Name;
+					v.Questions.Add(new QuizQuestionsViewModel
+                    {
+						Id = b.Id,
+						Q_TotalMarks = b.Q_TotalMarks,
+						Name = b.Name
+					});
+				}
+			}
+			foreach (OptionViewModel k in h)
+			{
+				foreach (QuizQuestionsViewModel e in v.Questions)
+				{
+					if (k.QuestionsId == e.Id)
+					{
+						e._option.Add(k);
+					}
+				}
+
+			}
+
+			return View(v);
+		}
+
+		[HttpPost]
+		public ActionResult Attempt_Quiz(int id, StudentQuizViewModel d)
+		{
+			StudentQuizViewModel f = new StudentQuizViewModel();
+			OptionViewModel h = new OptionViewModel();
+		
+			f.Id = d.Id;
+			f.obtainedMarks = d.obtainedMarks;
+			f.Questions = d.Questions;
+			f.TotalMarks = d.TotalMarks;
+			f.Title = d.Title;
+			f.DateCreated = d.DateCreated;
+			f.Questions = d.Questions;
+			
+			foreach (QuizQuestionsViewModel q in f.Questions)
+			{
+				foreach (OptionViewModel k in q._option)
+				{
+					if (k.ischecked == true && k.IsAnswer == true)
+					{
+						f.obtainedMarks = f.obtainedMarks + 1;
+					}
+				}
+			}
+			return View("Result", f);
+		}
+
+
 		// GET: Quiz/Delete/5
 		public ActionResult Delete(int id)
         {

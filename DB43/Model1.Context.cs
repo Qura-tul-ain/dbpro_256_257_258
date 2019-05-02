@@ -37,15 +37,5 @@ namespace DB43
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<StudentRegisterCourse> StudentRegisterCourses { get; set; }
         public virtual DbSet<StudentResult> StudentResults { get; set; }
-
-		public System.Data.Entity.DbSet<DB43.Models.FullQuizModel> FullQuizModels { get; set; }
-
-		public System.Data.Entity.DbSet<DB43.Models.CourseViewModels> CourseViewModels { get; set; }
-
-		public System.Data.Entity.DbSet<DB43.Models.InstructorQuizViewModel> InstructorQuizViewModels { get; set; }
-
-		public System.Data.Entity.DbSet<DB43.Models.QuizQuestionsViewModel> QuizQuestionsViewModels { get; set; }
-
-		public System.Data.Entity.DbSet<DB43.Models.OptionViewModel> OptionViewModels { get; set; }
-	}
+    }
 }

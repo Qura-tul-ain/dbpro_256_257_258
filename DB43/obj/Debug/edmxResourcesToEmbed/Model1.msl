@@ -4,135 +4,136 @@
     <EntitySetMapping Name="Announcements">
       <EntityTypeMapping TypeName="DB43Model.Announcement">
         <MappingFragment StoreEntitySet="Announcement">
-          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-          <ScalarProperty Name="Text" ColumnName="Text" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CorrectOptions">
       <EntityTypeMapping TypeName="DB43Model.CorrectOption">
         <MappingFragment StoreEntitySet="CorrectOption">
-          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-          <ScalarProperty Name="Correctvalue" ColumnName="Correctvalue" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Correctvalue" ColumnName="Correctvalue" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Courses">
       <EntityTypeMapping TypeName="DB43Model.Course">
         <MappingFragment StoreEntitySet="Course">
-          <ScalarProperty Name="CourseImage" ColumnName="CourseImage" />
-          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
-          <ScalarProperty Name="Fee" ColumnName="Fee" />
-          <ScalarProperty Name="Credits" ColumnName="Credits" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Credits" ColumnName="Credits" />
+          <ScalarProperty Name="Fee" ColumnName="Fee" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="CourseImage" ColumnName="CourseImage" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Departments">
       <EntityTypeMapping TypeName="DB43Model.Department">
         <MappingFragment StoreEntitySet="Department">
-          <ScalarProperty Name="Image" ColumnName="Image" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Instructors">
       <EntityTypeMapping TypeName="DB43Model.Instructor">
         <MappingFragment StoreEntitySet="Instructor">
-          <ScalarProperty Name="HireDate" ColumnName="HireDate" />
-          <ScalarProperty Name="Qualification" ColumnName="Qualification" />
           <ScalarProperty Name="InstructorId" ColumnName="InstructorId" />
+          <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+          <ScalarProperty Name="HireDate" ColumnName="HireDate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Options">
       <EntityTypeMapping TypeName="DB43Model.Option">
         <MappingFragment StoreEntitySet="Options">
-          <ScalarProperty Name="QuestionsId" ColumnName="QuestionsId" />
-          <ScalarProperty Name="OptionValue" ColumnName="OptionValue" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="OptionValue" ColumnName="OptionValue" />
+          <ScalarProperty Name="IsAnswer" ColumnName="IsAnswer" />
+          <ScalarProperty Name="QuestionsId" ColumnName="QuestionsId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="People">
       <EntityTypeMapping TypeName="DB43Model.Person">
         <MappingFragment StoreEntitySet="Person">
-          <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Gender" ColumnName="Gender" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Contact" ColumnName="Contact" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Questions">
       <EntityTypeMapping TypeName="DB43Model.Question">
         <MappingFragment StoreEntitySet="Questions">
-          <ScalarProperty Name="QuizId" ColumnName="QuizId" />
-          <ScalarProperty Name="TotalMarks" ColumnName="TotalMarks" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="TotalMarks" ColumnName="TotalMarks" />
+          <ScalarProperty Name="QuizId" ColumnName="QuizId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Quizs">
       <EntityTypeMapping TypeName="DB43Model.Quiz">
         <MappingFragment StoreEntitySet="Quiz">
-          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-          <ScalarProperty Name="TotalMarks" ColumnName="TotalMarks" />
-          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+          <ScalarProperty Name="TotalMarks" ColumnName="TotalMarks" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Students">
       <EntityTypeMapping TypeName="DB43Model.Student">
         <MappingFragment StoreEntitySet="Student">
-          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="EnrollmentDate" ColumnName="EnrollmentDate" />
-          <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+          <ScalarProperty Name="EnrollmentDate" ColumnName="EnrollmentDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="PersonId" ColumnName="PersonId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="StudentRegisterCourses">
       <EntityTypeMapping TypeName="DB43Model.StudentRegisterCourse">
         <MappingFragment StoreEntitySet="StudentRegisterCourse">
-          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
-          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="StudentResults">
       <EntityTypeMapping TypeName="DB43Model.StudentResult">
         <MappingFragment StoreEntitySet="StudentResult">
-          <ScalarProperty Name="Marks" ColumnName="Marks" />
-          <ScalarProperty Name="Ans" ColumnName="Ans" />
-          <ScalarProperty Name="EvalutionDate" ColumnName="EvalutionDate" />
-          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="EvalutionDate" ColumnName="EvalutionDate" />
+          <ScalarProperty Name="Ans" ColumnName="Ans" />
+          <ScalarProperty Name="Marks" ColumnName="Marks" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <AssociationSetMapping Name="AssignInstructor" TypeName="DB43Model.AssignInstructor" StoreEntitySet="AssignInstructor">
-      <EndProperty Name="Instructor">
-        <ScalarProperty Name="InstructorId" ColumnName="InstructorId" />
-      </EndProperty>
       <EndProperty Name="Course">
         <ScalarProperty Name="Id" ColumnName="CourseId" />
+      </EndProperty>
+      <EndProperty Name="Instructor">
+        <ScalarProperty Name="InstructorId" ColumnName="InstructorId" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace DB43.Models
 {
-	public class QuizQuestionsViewModel
+	public class QuestionOptionModel
 	{
 		public int Id { get; set; }
 		[Required]
@@ -16,6 +16,6 @@ namespace DB43.Models
 		[Display(Name = "Marks")]
 		public int Q_TotalMarks { get; set; }
 		public int QuizId { get; set; }
-        public List<OptionViewModel> _option = new List<OptionViewModel>();
-    }
+		public List<Option> _option = new List<Option>();
+	}
 }

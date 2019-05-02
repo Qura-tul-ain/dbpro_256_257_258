@@ -58,6 +58,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="OptionValue" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="IsAnswer" Type="varchar" MaxLength="15" Nullable="false" />
     <Property Name="QuestionsId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Person">
@@ -206,7 +207,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Options__Questio__32E0915F">
+  <Association Name="FK__Options__Questio__4316F928">
     <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
     <End Role="Options" Type="Self.Options" Multiplicity="*" />
     <ReferentialConstraint>
@@ -338,7 +339,7 @@ warning 6035: The relationship 'FK__StudentRe__Stude__398D8EEE' has columns that
       <End Role="Person" EntitySet="Person" />
       <End Role="Instructor" EntitySet="Instructor" />
     </AssociationSet>
-    <AssociationSet Name="FK__Options__Questio__32E0915F" Association="Self.FK__Options__Questio__32E0915F">
+    <AssociationSet Name="FK__Options__Questio__4316F928" Association="Self.FK__Options__Questio__4316F928">
       <End Role="Questions" EntitySet="Questions" />
       <End Role="Options" EntitySet="Options" />
     </AssociationSet>

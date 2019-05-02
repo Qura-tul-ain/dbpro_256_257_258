@@ -76,7 +76,7 @@ create TABLE [Questions](
 CREATE TABLE [Options](
 [Id] int NOT NULL PRIMARY KEY IDENTITY, 
 [OptionValue] varchar(30) NOT NULL UNIQUE,
-
+[IsAnswer] varchar(15) NOT NULL DEFAULT('false'),
 [QuestionsId] int NOT NULL FOREIGN KEY REFERENCES Questions(Id),
 
 )

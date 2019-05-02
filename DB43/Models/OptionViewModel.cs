@@ -12,6 +12,8 @@ namespace DB43.Models
 		[Required]
 		[Display(Name = "Option Value")]
 		public string OptionValue { get; set; }
+		public bool IsAnswer { get; set; }
 		public int QuestionsId { get; set; }
+		public bool ischecked { get; set; }
 	}
 }

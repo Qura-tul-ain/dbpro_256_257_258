@@ -251,8 +251,10 @@
     <Compile Include="Models\InstructorQuizViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OptionViewModel.cs" />
+    <Compile Include="Models\QuestionOptionModel.cs" />
     <Compile Include="Models\QuizQuestionsViewModel.cs" />
     <Compile Include="Models\RegisterCourseViewModels.cs" />
+    <Compile Include="Models\StudentQuizViewModel.cs" />
     <Compile Include="Option.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -651,6 +653,10 @@
     <Content Include="Views\Quiz\Q_Options.cshtml" />
     <Content Include="Views\Quiz\Create_options.cshtml" />
     <Content Include="Views\Shared\LimitExceed.cshtml" />
+    <Content Include="Views\Quiz\Attempt_Quiz.cshtml" />
+    <Content Include="Views\Quiz\Result.cshtml" />
+    <Content Include="Views\Quiz\__choice.cshtml" />
+    <Content Include="Views\Quiz\Added.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
