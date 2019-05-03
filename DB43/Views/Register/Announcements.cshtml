@@ -1,0 +1,40 @@
+﻿
+
+
+@model IEnumerable<DB43.Models.AnnouncementViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+<h2>Announcements</h2>
+<center>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.text)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.text)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseName)
+                </td>
+
+
+            </tr>
+        }
+
+    </table>
+
+</center>

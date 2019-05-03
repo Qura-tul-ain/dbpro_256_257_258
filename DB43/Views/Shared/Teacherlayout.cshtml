@@ -28,52 +28,74 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
-					<ul class="navbar-nav mx-auto">
-						<li class="nav-item">
+                    <div>
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item">
 
-						<li>@Html.ActionLink("Home", "Index", "Home")</li>
-						<li>@Html.ActionLink("Course", "Index", "Course")</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="courses.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Courses</a>
-							<div class="dropdown-menu" aria-labelledby="dropdown04">
-								<a class="dropdown-item" href="courses.html">HTML</a>
-								<a class="dropdown-item" href="courses.html">WordPress</a>
-								<a class="dropdown-item" href="courses.html">Laravel</a>
-								<a class="dropdown-item" href="courses.html">JavaScript</a>
-								<a class="dropdown-item" href="courses.html">Python</a>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Quizzes</a>
-							<div class="dropdown-menu" aria-labelledby="dropdown05">
-								<a class="dropdown-item" href="#">HTML</a>
-								<a class="dropdown-item" href="#">WordPress</a>
-								<a class="dropdown-item" href="#">Laravel</a>
-								<a class="dropdown-item" href="#">JavaScript</a>
-								<a class="dropdown-item" href="#">Python</a>
-							</div>
-						</li>
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Add Department", "Create", "Departments")</li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="courses.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Courses</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                                    <a class="dropdown-item" href="courses.html">HTML</a>
+                                    <a class="dropdown-item" href="courses.html">WordPress</a>
+                                    <a class="dropdown-item" href="courses.html">Laravel</a>
+                                    <a class="dropdown-item" href="courses.html">JavaScript</a>
+                                    <a class="dropdown-item" href="courses.html">Python</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Quizzes</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown05">
+                                    <a class="dropdown-item" href="#">HTML</a>
+                                    <a class="dropdown-item" href="#">WordPress</a>
+                                    <a class="dropdown-item" href="#">Laravel</a>
+                                    <a class="dropdown-item" href="#">JavaScript</a>
+                                    <a class="dropdown-item" href="#">Python</a>
+                                </div>
+                            </li>
 
-						<li class="nav-item">
+                            <li class="nav-item">
 
-						</li>
-						<li class="nav-item">
+                            </li>
+                            <li class="nav-item">
 
 
-					</ul>
-					<ul class="navbar-nav absolute-right">
-                        <li>
-                            <a href="@Url.Action("PersonalData", "Register")" class="dropdown-item">
-                                <span>Personal Data</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Announcements", "Register")" class="dropdown-item">
-                                <span>Announcements</span>
-                            </a>
-                        </li>
-					</ul>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="navbar-nav absolute-right">
+                            <li>
+                                <a href="@Url.Action("TeacherWithCourses", "Register")" class="dropdown-item">
+                                    <span>Your Courses</span>
+                                </a>
 
+                            </li>
+                            <li>
+
+                                <a href="@Url.Action("Index", "Departments")" class="dropdown-item">
+                                    <span>View Departments</span>
+                                </a>
+
+                            </li>
+
+                            <li>
+
+                                <a href="@Url.Action("AllInstructor", "AddCourse")" class="dropdown-item">
+                                    <span>Assign Instructor</span>
+                                </a>
+
+                            </li>
+
+                            <li>
+
+                                <a href="@Url.Action("InstructorWithCourses", "AddCourse")" class="dropdown-item">
+                                    <span>InstructorWithCourses</span>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </div>
 				</div>
 			</div>
 		</nav>
@@ -85,13 +107,13 @@
 
 
 	@RenderBody()
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
 
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
 	<footer class="site-footer">
 		<div class="container">
 			<div class="row mb-5">

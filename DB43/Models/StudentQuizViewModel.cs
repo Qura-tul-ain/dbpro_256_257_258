@@ -19,7 +19,7 @@ namespace DB43.Models
 		public System.DateTime DateCreated { get; set; }
 
 		public int TotalMarks { get; set; }
-        public List<QuizQuestionsViewModel> Questions { get => questions; set => questions = value; }
+      //  public List<QuizQuestionsViewModel> Questions { get => questions; set => questions = value; }
 
         public int obtainedMarks { get; set; }
         private List<QuizQuestionsViewModel> questions = new List<QuizQuestionsViewModel>();

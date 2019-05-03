@@ -14,7 +14,28 @@
 <div class="row">
     @foreach (var item in Model)
     {
+
         <div class="col-sm-4">
+            <div class="block-19">
+                <figure>
+                    <img src="@Url.Content(item.Image)" height="350" width="450" class="img-fluid" />
+                </figure>
+                <div class="text">
+                    <h2 class="heading">@item.Name</h2>
+                    <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+                    <div class="meta d-flex align-items-center">
+
+                        <a href="~/Register/Get_Id/@item.Id" class="price text-right"><span>View Courses</span></a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        @*<div class="col-sm-4">
             <div class="block-19">
                 
                 <div class="text">
@@ -28,6 +49,6 @@
 					</div>
                 </div>
             </div>
-        </div>
+        </div>*@
     }
 </div>

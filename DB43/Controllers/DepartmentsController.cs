@@ -18,9 +18,10 @@ namespace DB43.Controllers
     public class DepartmentsController : Controller
     {
        // private DB43Entities db = new DB43Entities();
-        public string connection = " Data Source = DESKTOP-G0K5DQK; Initial Catalog = DB43; Integrated Security = True";
+        public string connection = " Data Source = DESKTOP-G0K5DQK; Initial Catalog = DB433; Integrated Security = True";
        
         // GET: Departments
+        // fro admin
         public ActionResult Index()
         {
 
@@ -48,6 +49,37 @@ namespace DB43.Controllers
                 lists.Add(dpt);
             }
           
+            return View(lists);
+        }
+        // for teachers
+
+        public ActionResult Index2()
+        {
+
+            SqlConnection conn = new SqlConnection(connection);
+            string query;
+            SqlCommand SqlCommand;
+
+            List<DepartmentViewModel> lists = new List<DepartmentViewModel>();
+
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            //Open the connection to db
+            conn.Open();
+
+            //Generating the query to fetch the contact details
+            query = " SELECT * FROM Department ";
+
+            SqlCommand = new SqlCommand(query, conn);
+            SqlDataReader rdr = SqlCommand.ExecuteReader();
+            while (rdr.Read())
+            {
+                var dpt = new DepartmentViewModel();
+                dpt.Id = Convert.ToInt32(rdr[0]);
+                dpt.Name = rdr[1].ToString();
+                dpt.Image = rdr[2].ToString();
+                lists.Add(dpt);
+            }
+
             return View(lists);
         }
 

@@ -1,8 +1,9 @@
 ﻿
+
 @model IEnumerable<DB43.Models.AddCourseViewModels>
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+    ViewBag.Title = "DIisplayCoursesToTeacher";
+    Layout = "~/Views/Shared/Teacherlayout.cshtml";
 }
 
 
@@ -29,12 +30,9 @@
                     <h2 class="heading"><a href="#">@item.Title</a></h2>
                     <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
                     <div class="meta d-flex align-items-center">
-                        <div class="number">
-                            <a href="~/Register/CourseRegister/@item.Id" class="price text-right"><span>Register Course</span></a>
-                        </div>
-                        <div>
-                            <a href="~/Course/Get_Id/@item.Id" class="price text-right"><span>View Details</span></a>
-                        </div>
+                             
+                        <a href="~/Course/Get_Id/@item.Id" class="price text-right"><span>View Details</span></a>
+                 
                     </div>
                 </div>
             </div>
@@ -49,3 +47,7 @@
         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
         @Html.ActionLink("Back to List", "Index")
     </p>*@
+
+
+
+

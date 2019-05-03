@@ -13,7 +13,7 @@ namespace DB43.Controllers
 {
     public class AddCourseController : Controller
     {
-        public string connection = " Data Source = DESKTOP-G0K5DQK; Initial Catalog = DB43; Integrated Security = True";
+        public string connection = " Data Source = DESKTOP-G0K5DQK; Initial Catalog = DB433; Integrated Security = True";
         public static int  DeptId;
         public static int instructorId;// store id of instructor
         public static int CId;// course id

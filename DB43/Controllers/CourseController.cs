@@ -5,30 +5,41 @@ using DB43;
 using System.Web;
 using System.Web.Mvc;
 using DB43.Models;
+using System.Data.SqlClient;
 
 namespace DB43.Controllers
 {
     public class CourseController : Controller
     {
-		DB43Entities db = new DB43Entities();
-		
-		public ActionResult CourseRegister(int id)
-		{
-			Course c = new Course();
-			c = db.Courses.Find(id);
+		DB433Entities db = new DB433Entities();
+        public string connection = "Data Source=DESKTOP-G0K5DQK;Initial Catalog=DB433;Integrated Security=True";
 
-			StudentRegisterCourse g = new StudentRegisterCourse();
-			g.CourseId = c.Id;
-			g.DepartmentId = c.DepartmentId;
+        public static int Cid;
+        public ActionResult Get_Id(int id)
+        {
 
-			//g.DepartmentId = 
-			//var user = db.People.
-			var Get_Student = db.People.Single(u => u.Email == "farah@gmail.com");
-			g.StudentId = Get_Student.Id;
-			db.StudentRegisterCourses.Add(g);
-			db.SaveChanges();
-			return View("CourseRegister");
-		}
+            Cid = id;// global variable
+
+            return RedirectToAction("Details",new { CId=id});
+        }
+
+  //      public ActionResult CourseRegister(int id)
+		//{
+		//	Course c = new Course();
+		//	c = db.Courses.Find(id);
+
+		//	StudentRegisterCourse g = new StudentRegisterCourse();
+		//	g.CourseId = c.Id;
+		//	g.DepartmentId = c.DepartmentId;
+
+		//	//g.DepartmentId = 
+		//	//var user = db.People.
+		//	var Get_Student = db.People.Single(u => u.Email == "farah@gmail.com");
+		//	g.StudentId = Get_Student.Id;
+		//	db.StudentRegisterCourses.Add(g);
+		//	db.SaveChanges();
+		//	return View("CourseRegister");
+		//}
 		// GET: Course
 		public ActionResult Index(int id)
 		{
@@ -78,19 +89,28 @@ namespace DB43.Controllers
 
 
 		// GET: Course/Details/5
-		public ActionResult Details(int id)
+		public ActionResult Details(int CId)
         {
-			Course c = new Course();
-			List<Course> list1 = db.Courses.ToList();
-			//int b = list1.Count();
-			Course user1 = db.Courses.Find(id);
-			CourseViewModels g = new CourseViewModels();
-			g.Id = user1.Id;
-			g.Title = user1.Title;
-			g.Credits = user1.Credits;
-			g.Fee = user1.Fee;
+            SqlConnection con = new SqlConnection(connection);
+            con.Open();
 
-            return View(g);
+            List<AddCourseViewModels> lists = new List<AddCourseViewModels>();
+            string query = "SELECT * from Course where Id='" + CId + "'";
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                var course = new AddCourseViewModels();
+               course.Id = Convert.ToInt32(rdr[0]);
+                course.Title = rdr[1].ToString();
+                course.Credits = rdr[2].ToString();
+                course.Fee = Convert.ToInt32(rdr[3]);
+                course.DepartmentId = Convert.ToInt32(rdr[4]);
+                course.CourseImage = rdr[5].ToString();
+                lists.Add(course);
+            }
+            rdr.Close();
+            return View(lists);
         }
 
         // GET: Course/Create

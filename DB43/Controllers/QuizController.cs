@@ -10,8 +10,8 @@ namespace DB43.Controllers
     public class QuizController : Controller
     {
 		// GET: Quiz
-		DB43Entities db = new DB43Entities();
-
+		DB433Entities db = new DB433Entities();
+        public static int cid;
         public ActionResult Index(int id)
         {
 			List<Quiz> q = db.Quizs.ToList();
@@ -150,13 +150,14 @@ namespace DB43.Controllers
 			return View(viewList2);
 		}
 
-	
 
 
 
 
-		// GET: Quiz/Details/5
-		public ActionResult Add_Question(int id)
+
+        // GET: Quiz/Details/5
+        int sum;
+        public ActionResult Add_Question(int id)
         {
             return View();
         }
@@ -165,25 +166,29 @@ namespace DB43.Controllers
 		{
 			List<Question> m = db.Questions.ToList();
 			List<Question> s = new List<Question>();
+           
 			foreach (Question v in m)
 			{
 				if (v.QuizId == id)
 				{
+                    sum = v.TotalMarks;
 					s.Add(v);
 				}
 			}
-			if (s.Count < 10)
+            var quz = db.Quizs.Find(id);
+
+            if (sum < quz.TotalMarks)
 			{
 				try
 				{
 					Question o = new Question();
 					//o.Id = model.Id;
 					o.Name = model.Name;
-					o.TotalMarks = 1;
+					o.TotalMarks = model.Q_TotalMarks;
 					o.QuizId = id;
 					db.Questions.Add(o);
 					db.SaveChanges();
-					return RedirectToAction("Dep_Courses");
+					return RedirectToAction("Q_Index",new { id=id});
 				}
 				catch (Exception ex)
 				{
@@ -198,15 +203,15 @@ namespace DB43.Controllers
 		}
 
 		// GET: Quiz/Create
-		public ActionResult Create()
+		public ActionResult Create(int id)
         {
-
+            cid = id;
             return View();
         }
 
         // POST: Quiz/Create
         [HttpPost]
-        public ActionResult Create(int id, InstructorQuizViewModel model)
+        public ActionResult Create(InstructorQuizViewModel model)
         {
             try
             {
@@ -214,11 +219,11 @@ namespace DB43.Controllers
 				q.Title = model.Title;
 				q.TotalMarks = model.TotalMarks;
 				q.DateCreated = DateTime.Now;
-				q.CourseId = id;
+				q.CourseId = cid;
 				db.Quizs.Add(q);
 				db.SaveChanges();
 
-                return RedirectToAction("Dep_Courses");
+                return RedirectToAction("Q_Index", new { id = cid });
             }
             catch
             {
@@ -322,16 +327,24 @@ namespace DB43.Controllers
 			}
 			if (s.Count < 3)
 			{
-				try
-				{
-					Option q = new Option();
-					q.QuestionsId = id;
-					q.OptionValue = model.OptionValue;
-					q.IsAnswer = Convert.ToString(model.IsAnswer);
-					db.Options.Add(q);
-					db.SaveChanges();
+                try
+                {
+                    Option q = new Option();
+                    q.QuestionsId = id;
+                    q.OptionValue = model.OptionValue;
+                    q.IsAnswer = Convert.ToString(model.IsAnswer);
+                    db.Options.Add(q);
+                    db.SaveChanges();
+                    if (model.IsAnswer == true)
+                    {
+                        CorrectOption op = new CorrectOption();
+                        op.Correctvalue = model.OptionValue;
+                        op.QuestionId = id;
+                        db.CorrectOptions.Add(op);
+                        db.SaveChanges();
+                    }
 
-					return RedirectToAction("Dep_Courses");
+					return RedirectToAction("Q_Index",new { id=id});
 				}
 				catch
 				{
@@ -345,89 +358,90 @@ namespace DB43.Controllers
 		}
 		public ActionResult Attempt_Quiz(int id)
 		{
-			var Quix = db.Quizs.Find(id);
-			List<Question> Q = db.Questions.ToList();
-			List<Option> O = db.Options.ToList();
-			List<OptionViewModel> h = new List<OptionViewModel>();
-			OptionViewModel n = new OptionViewModel();
-			foreach (Option i in O)
-			{
-				n.Id = i.Id;
-				n.IsAnswer = Convert.ToBoolean(i.IsAnswer);
-				n.ischecked = false;
-				n.OptionValue = i.OptionValue;
-				n.QuestionsId = i.QuestionsId;
-				h.Add(new OptionViewModel
-				{
-					Id = n.Id,
-					IsAnswer = n.IsAnswer,
-					ischecked = n.ischecked,
-					OptionValue = n.OptionValue,
-					QuestionsId = n.QuestionsId
-				});
+		//	var Quix = db.Quizs.Find(id);
+		//	List<Question> Q = db.Questions.ToList();
+		//	List<Option> O = db.Options.ToList();
+		//	List<OptionViewModel> h = new List<OptionViewModel>();
+		//	OptionViewModel n = new OptionViewModel();
+		//	foreach (Option i in O)
+		//	{
+		//		n.Id = i.Id;
+		//		n.IsAnswer = Convert.ToBoolean(i.IsAnswer);
+		//		n.ischecked = false;
+		//		n.OptionValue = i.OptionValue;
+		//		n.QuestionsId = i.QuestionsId;
+		//		h.Add(new OptionViewModel
+		//		{
+		//			Id = n.Id,
+		//			IsAnswer = n.IsAnswer,
+		//			ischecked = n.ischecked,
+		//			OptionValue = n.OptionValue,
+		//			QuestionsId = n.QuestionsId
+		//		});
 
-			}
-			List<StudentQuizViewModel> G = new List<StudentQuizViewModel>();
-			StudentQuizViewModel v = new StudentQuizViewModel();
-			v.Id = Quix.Id;
-			v.Title = Quix.Title;
-			v.TotalMarks = Quix.TotalMarks;
-			QuestionOptionModel b = new QuestionOptionModel();
-			foreach (Question q in Q)
-			{
-				if (q.QuizId == id)
-				{
-					b.Id = q.Id;
-					b.Q_TotalMarks = q.TotalMarks;
-					b.Name = q.Name;
-					v.Questions.Add(new QuizQuestionsViewModel
-                    {
-						Id = b.Id,
-						Q_TotalMarks = b.Q_TotalMarks,
-						Name = b.Name
-					});
-				}
-			}
-			foreach (OptionViewModel k in h)
-			{
-				foreach (QuizQuestionsViewModel e in v.Questions)
-				{
-					if (k.QuestionsId == e.Id)
-					{
-						e._option.Add(k);
-					}
-				}
+		//	}
+		//	List<StudentQuizViewModel> G = new List<StudentQuizViewModel>();
+		//	StudentQuizViewModel v = new StudentQuizViewModel();
+		//	v.Id = Quix.Id;
+		//	v.Title = Quix.Title;
+		//	v.TotalMarks = Quix.TotalMarks;
+		//	QuestionOptionModel b = new QuestionOptionModel();
+		//	foreach (Question q in Q)
+		//	{
+		//		if (q.QuizId == id)
+		//		{
+		//			b.Id = q.Id;
+		//			b.Q_TotalMarks = q.TotalMarks;
+		//			b.Name = q.Name;
+		//			v.Questions.Add(new QuizQuestionsViewModel
+  //                  {
+		//				Id = b.Id,
+		//				Q_TotalMarks = b.Q_TotalMarks,
+		//				Name = b.Name
+		//			});
+		//		}
+		//	}
+		//	foreach (OptionViewModel k in h)
+		//	{
+		//		foreach (QuizQuestionsViewModel e in v.Questions)
+		//		{
+		//			if (k.QuestionsId == e.Id)
+		//			{
+		//				e._option.Add(k);
+		//			}
+		//		}
 
-			}
+		//	}
 
-			return View(v);
+			return View();
 		}
 
 		[HttpPost]
 		public ActionResult Attempt_Quiz(int id, StudentQuizViewModel d)
 		{
-			StudentQuizViewModel f = new StudentQuizViewModel();
-			OptionViewModel h = new OptionViewModel();
-		
-			f.Id = d.Id;
-			f.obtainedMarks = d.obtainedMarks;
-			f.Questions = d.Questions;
-			f.TotalMarks = d.TotalMarks;
-			f.Title = d.Title;
-			f.DateCreated = d.DateCreated;
-			f.Questions = d.Questions;
-			
-			foreach (QuizQuestionsViewModel q in f.Questions)
-			{
-				foreach (OptionViewModel k in q._option)
-				{
-					if (k.ischecked == true && k.IsAnswer == true)
-					{
-						f.obtainedMarks = f.obtainedMarks + 1;
-					}
-				}
-			}
-			return View("Result", f);
+            //StudentQuizViewModel f = new StudentQuizViewModel();
+            //OptionViewModel h = new OptionViewModel();
+
+            //f.Id = d.Id;
+            //f.obtainedMarks = d.obtainedMarks;
+            //f.Questions = d.Questions;
+            //f.TotalMarks = d.TotalMarks;
+            //f.Title = d.Title;
+            //f.DateCreated = d.DateCreated;
+            //f.Questions = d.Questions;
+
+            //foreach (QuizQuestionsViewModel q in f.Questions)
+            //{
+            //	foreach (OptionViewModel k in q._option)
+            //	{
+            //		if (k.ischecked == true && k.IsAnswer == true)
+            //		{
+            //			f.obtainedMarks = f.obtainedMarks + 1;
+            //		}
+            //	}
+            //}
+            //return View("Result", f);
+            return View();
 		}
 
 

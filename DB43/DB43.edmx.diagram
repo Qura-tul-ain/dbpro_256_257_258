@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1d22b1c139e44ad7b56ba2d5803494a7" Name="Diagram1">
+        <EntityTypeShape EntityType="DB433Model.Announcement" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB433Model.CorrectOption" Width="1.5" PointX="9.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB433Model.Course" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB433Model.Department" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB433Model.Instructor" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB433Model.Option" Width="1.5" PointX="9.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB433Model.Person" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB433Model.Question" Width="1.5" PointX="7.5" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB433Model.Quiz" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB433Model.Student" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB433Model.StudentRegisterCourse" Width="1.5" PointX="8.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB433Model.StudentResult" Width="1.5" PointX="9.75" PointY="16.875" IsExpanded="true" />
+        <AssociationConnector Association="DB433Model.FK__Announcem__Cours__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="DB433Model.FK__Announcem__Perso__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="DB433Model.FK__CorrectOp__Quest__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="DB433Model.FK__Course__Departme__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="DB433Model.FK__Quiz__CourseId__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="DB433Model.FK__StudentRe__Cours__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="DB433Model.FK__StudentRe__Depar__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="DB433Model.FK__Instructo__Instr__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="DB433Model.FK__Options__Questio__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="DB433Model.FK__Student__PersonI__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="DB433Model.FK__Questions__QuizI__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="DB433Model.FK__StudentRe__Quest__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="DB433Model.AssignInstructor" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -23,8 +23,6 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Correctvalue" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="DateCreated" Type="date" Nullable="false" />
-    <Property Name="DateUpdated" Type="date" Nullable="false" />
     <Property Name="QuestionId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Course">
@@ -35,6 +33,16 @@
     <Property Name="Title" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="Credits" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="Fee" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="DepartmentId" Type="int" Nullable="false" />
+    <Property Name="CourseImage" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Image" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="Instructor">
     <Key>
@@ -43,7 +51,6 @@
     <Property Name="InstructorId" Type="int" Nullable="false" />
     <Property Name="Qualification" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="HireDate" Type="date" Nullable="false" />
-    <Property Name="PersonId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Options">
     <Key>
@@ -51,8 +58,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="OptionValue" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="DateCreated" Type="date" Nullable="false" />
-    <Property Name="DateUpdated" Type="date" Nullable="false" />
+    <Property Name="IsAnswer" Type="varchar" MaxLength="15" Nullable="false" />
     <Property Name="QuestionsId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Person">
@@ -63,7 +69,7 @@
     <Property Name="LastName" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="FirstName" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="Contact" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="Email" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Gender" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="Discriminator" Type="varchar" MaxLength="50" Nullable="false" />
@@ -74,8 +80,6 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="30" Nullable="false" />
-    <Property Name="DateCreated" Type="date" Nullable="false" />
-    <Property Name="DateUpdated" Type="date" Nullable="false" />
     <Property Name="TotalMarks" Type="int" Nullable="false" />
     <Property Name="QuizId" Type="int" Nullable="false" />
   </EntityType>
@@ -104,6 +108,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepartmentId" Type="int" Nullable="false" />
     <Property Name="CourseId" Type="int" Nullable="false" />
     <Property Name="StudentId" Type="int" Nullable="false" />
   </EntityType>
@@ -118,7 +123,7 @@
     <Property Name="Ans" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="Marks" Type="float" Nullable="false" />
   </EntityType>
-  <Association Name="FK__Announcem__Cours__4BAC3F29">
+  <Association Name="FK__Announcem__Cours__52593CB8">
     <End Role="Course" Type="Self.Course" Multiplicity="1" />
     <End Role="Announcement" Type="Self.Announcement" Multiplicity="*" />
     <ReferentialConstraint>
@@ -130,7 +135,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Announcem__Perso__4AB81AF0">
+  <Association Name="FK__Announcem__Perso__5165187F">
     <End Role="Person" Type="Self.Person" Multiplicity="1" />
     <End Role="Announcement" Type="Self.Announcement" Multiplicity="*" />
     <ReferentialConstraint>
@@ -142,7 +147,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__AssignIns__Cours__2D27B809">
+  <Association Name="FK__AssignIns__Cours__300424B4">
     <End Role="Course" Type="Self.Course" Multiplicity="1" />
     <End Role="AssignInstructor" Type="Self.AssignInstructor" Multiplicity="*" />
     <ReferentialConstraint>
@@ -154,7 +159,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__CorrectOp__Quest__440B1D61">
+  <Association Name="FK__AssignIns__Instr__2F10007B">
+    <End Role="Instructor" Type="Self.Instructor" Multiplicity="1" />
+    <End Role="AssignInstructor" Type="Self.AssignInstructor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instructor">
+        <PropertyRef Name="InstructorId" />
+      </Principal>
+      <Dependent Role="AssignInstructor">
+        <PropertyRef Name="InstructorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__CorrectOp__Quest__4AB81AF0">
     <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
     <End Role="CorrectOption" Type="Self.CorrectOption" Multiplicity="*" />
     <ReferentialConstraint>
@@ -166,7 +183,31 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Options__Questio__403A8C7D">
+  <Association Name="FK__Course__Departme__2C3393D0">
+    <End Role="Department" Type="Self.Department" Multiplicity="1" />
+    <End Role="Course" Type="Self.Course" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Course">
+        <PropertyRef Name="DepartmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Instructo__Instr__29572725">
+    <End Role="Person" Type="Self.Person" Multiplicity="1" />
+    <End Role="Instructor" Type="Self.Instructor" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Instructor">
+        <PropertyRef Name="InstructorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Options__Questio__46E78A0C">
     <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
     <End Role="Options" Type="Self.Options" Multiplicity="*" />
     <ReferentialConstraint>
@@ -178,7 +219,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Questions__QuizI__3C69FB99">
+  <Association Name="FK__Questions__QuizI__4222D4EF">
     <End Role="Quiz" Type="Self.Quiz" Multiplicity="1" />
     <End Role="Questions" Type="Self.Questions" Multiplicity="*" />
     <ReferentialConstraint>
@@ -190,7 +231,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Quiz__CourseId__38996AB5">
+  <Association Name="FK__Quiz__CourseId__3D5E1FD2">
     <End Role="Course" Type="Self.Course" Multiplicity="1" />
     <End Role="Quiz" Type="Self.Quiz" Multiplicity="*" />
     <ReferentialConstraint>
@@ -202,7 +243,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Student__PersonI__30F848ED">
+  <Association Name="FK__Student__PersonI__34C8D9D1">
     <End Role="Person" Type="Self.Person" Multiplicity="1" />
     <End Role="Student" Type="Self.Student" Multiplicity="*" />
     <ReferentialConstraint>
@@ -214,11 +255,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__StudentRe__Cours__33D4B598">
-    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+  <Association Name="FK__StudentRe__Cours__38996AB5">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
     <End Role="StudentRegisterCourse" Type="Self.StudentRegisterCourse" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Student">
+      <Principal Role="Course">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="StudentRegisterCourse">
@@ -226,7 +267,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__StudentRe__Quest__47DBAE45">
+  <Association Name="FK__StudentRe__Depar__37A5467C">
+    <End Role="Department" Type="Self.Department" Multiplicity="1" />
+    <End Role="StudentRegisterCourse" Type="Self.StudentRegisterCourse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentRegisterCourse">
+        <PropertyRef Name="DepartmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StudentRe__Quest__4E88ABD4">
     <End Role="Questions" Type="Self.Questions" Multiplicity="1" />
     <End Role="StudentResult" Type="Self.StudentResult" Multiplicity="*" />
     <ReferentialConstraint>
@@ -238,47 +291,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__StudentRe__Stude__34C8D9D1">
-    <End Role="Student" Type="Self.Student" Multiplicity="1" />
-    <End Role="StudentRegisterCourse" Type="Self.StudentRegisterCourse" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Student">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="StudentRegisterCourse">
-        <PropertyRef Name="StudentId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__StudentRe__Stude__46E78A0C">
-    <End Role="Student" Type="Self.Student" Multiplicity="1" />
-    <End Role="StudentResult" Type="Self.StudentResult" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Student">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="StudentResult">
-        <PropertyRef Name="StudentId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Instructor_Person">
-    <End Role="Person" Type="Self.Person" Multiplicity="1" />
-    <End Role="Instructor" Type="Self.Instructor" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Person">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Instructor">
-        <PropertyRef Name="PersonId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__StudentRe__Stude__398D8EEE' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__StudentRe__Stude__398D8EEE" />-->
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK__StudentRe__Stude__4D94879B' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK__StudentRe__Stude__4D94879B" />-->
   <EntityContainer Name="DB433ModelStoreContainer">
     <EntitySet Name="Announcement" EntityType="Self.Announcement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AssignInstructor" EntityType="Self.AssignInstructor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CorrectOption" EntityType="Self.CorrectOption" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Instructor" EntityType="Self.Instructor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Options" EntityType="Self.Options" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
@@ -287,57 +311,61 @@
     <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StudentRegisterCourse" EntityType="Self.StudentRegisterCourse" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StudentResult" EntityType="Self.StudentResult" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__Announcem__Cours__4BAC3F29" Association="Self.FK__Announcem__Cours__4BAC3F29">
+    <AssociationSet Name="FK__Announcem__Cours__52593CB8" Association="Self.FK__Announcem__Cours__52593CB8">
       <End Role="Course" EntitySet="Course" />
       <End Role="Announcement" EntitySet="Announcement" />
     </AssociationSet>
-    <AssociationSet Name="FK__Announcem__Perso__4AB81AF0" Association="Self.FK__Announcem__Perso__4AB81AF0">
+    <AssociationSet Name="FK__Announcem__Perso__5165187F" Association="Self.FK__Announcem__Perso__5165187F">
       <End Role="Person" EntitySet="Person" />
       <End Role="Announcement" EntitySet="Announcement" />
     </AssociationSet>
-    <AssociationSet Name="FK__AssignIns__Cours__2D27B809" Association="Self.FK__AssignIns__Cours__2D27B809">
+    <AssociationSet Name="FK__AssignIns__Cours__300424B4" Association="Self.FK__AssignIns__Cours__300424B4">
       <End Role="Course" EntitySet="Course" />
       <End Role="AssignInstructor" EntitySet="AssignInstructor" />
     </AssociationSet>
-    <AssociationSet Name="FK__CorrectOp__Quest__440B1D61" Association="Self.FK__CorrectOp__Quest__440B1D61">
+    <AssociationSet Name="FK__AssignIns__Instr__2F10007B" Association="Self.FK__AssignIns__Instr__2F10007B">
+      <End Role="Instructor" EntitySet="Instructor" />
+      <End Role="AssignInstructor" EntitySet="AssignInstructor" />
+    </AssociationSet>
+    <AssociationSet Name="FK__CorrectOp__Quest__4AB81AF0" Association="Self.FK__CorrectOp__Quest__4AB81AF0">
       <End Role="Questions" EntitySet="Questions" />
       <End Role="CorrectOption" EntitySet="CorrectOption" />
     </AssociationSet>
-    <AssociationSet Name="FK__Options__Questio__403A8C7D" Association="Self.FK__Options__Questio__403A8C7D">
+    <AssociationSet Name="FK__Course__Departme__2C3393D0" Association="Self.FK__Course__Departme__2C3393D0">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Course" EntitySet="Course" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Instructo__Instr__29572725" Association="Self.FK__Instructo__Instr__29572725">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Instructor" EntitySet="Instructor" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Options__Questio__46E78A0C" Association="Self.FK__Options__Questio__46E78A0C">
       <End Role="Questions" EntitySet="Questions" />
       <End Role="Options" EntitySet="Options" />
     </AssociationSet>
-    <AssociationSet Name="FK__Questions__QuizI__3C69FB99" Association="Self.FK__Questions__QuizI__3C69FB99">
+    <AssociationSet Name="FK__Questions__QuizI__4222D4EF" Association="Self.FK__Questions__QuizI__4222D4EF">
       <End Role="Quiz" EntitySet="Quiz" />
       <End Role="Questions" EntitySet="Questions" />
     </AssociationSet>
-    <AssociationSet Name="FK__Quiz__CourseId__38996AB5" Association="Self.FK__Quiz__CourseId__38996AB5">
+    <AssociationSet Name="FK__Quiz__CourseId__3D5E1FD2" Association="Self.FK__Quiz__CourseId__3D5E1FD2">
       <End Role="Course" EntitySet="Course" />
       <End Role="Quiz" EntitySet="Quiz" />
     </AssociationSet>
-    <AssociationSet Name="FK__Student__PersonI__30F848ED" Association="Self.FK__Student__PersonI__30F848ED">
+    <AssociationSet Name="FK__Student__PersonI__34C8D9D1" Association="Self.FK__Student__PersonI__34C8D9D1">
       <End Role="Person" EntitySet="Person" />
       <End Role="Student" EntitySet="Student" />
     </AssociationSet>
-    <AssociationSet Name="FK__StudentRe__Cours__33D4B598" Association="Self.FK__StudentRe__Cours__33D4B598">
-      <End Role="Student" EntitySet="Student" />
+    <AssociationSet Name="FK__StudentRe__Cours__38996AB5" Association="Self.FK__StudentRe__Cours__38996AB5">
+      <End Role="Course" EntitySet="Course" />
       <End Role="StudentRegisterCourse" EntitySet="StudentRegisterCourse" />
     </AssociationSet>
-    <AssociationSet Name="FK__StudentRe__Quest__47DBAE45" Association="Self.FK__StudentRe__Quest__47DBAE45">
+    <AssociationSet Name="FK__StudentRe__Depar__37A5467C" Association="Self.FK__StudentRe__Depar__37A5467C">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="StudentRegisterCourse" EntitySet="StudentRegisterCourse" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StudentRe__Quest__4E88ABD4" Association="Self.FK__StudentRe__Quest__4E88ABD4">
       <End Role="Questions" EntitySet="Questions" />
       <End Role="StudentResult" EntitySet="StudentResult" />
-    </AssociationSet>
-    <AssociationSet Name="FK__StudentRe__Stude__34C8D9D1" Association="Self.FK__StudentRe__Stude__34C8D9D1">
-      <End Role="Student" EntitySet="Student" />
-      <End Role="StudentRegisterCourse" EntitySet="StudentRegisterCourse" />
-    </AssociationSet>
-    <AssociationSet Name="FK__StudentRe__Stude__46E78A0C" Association="Self.FK__StudentRe__Stude__46E78A0C">
-      <End Role="Student" EntitySet="Student" />
-      <End Role="StudentResult" EntitySet="StudentResult" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Instructor_Person" Association="Self.FK_Instructor_Person">
-      <End Role="Person" EntitySet="Person" />
-      <End Role="Instructor" EntitySet="Instructor" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -1,0 +1,48 @@
+﻿
+
+@model IEnumerable<DB43.Models.InstructorWithCourses>
+@{
+    ViewBag.Title = "TeacherWithCourses";
+    Layout = "~/Views/Shared/Teacherlayout.cshtml";
+}
+
+
+<h2>TeacherWithCourses</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.deptName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InstName)
+        </th>
+      
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.deptName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InstName)
+            </td>
+          
+            <td>
+               
+                @Html.ActionLink("Add Quiz", "Create","Quiz",new { id = item.Id },null)|
+                @Html.ActionLink("View Quiz", "Quiz_Index","Quiz", new { id = item.Id },null) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
