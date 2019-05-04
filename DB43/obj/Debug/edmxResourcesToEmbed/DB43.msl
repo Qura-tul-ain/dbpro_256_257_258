@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="DB43ModelStoreContainer" CdmEntityContainer="DB43Entities1">
+  <EntityContainerMapping StorageEntityContainer="DB433ModelStoreContainer" CdmEntityContainer="DB433Entities">
     <EntitySetMapping Name="Announcements">
-      <EntityTypeMapping TypeName="DB43Model.Announcement">
+      <EntityTypeMapping TypeName="DB433Model.Announcement">
         <MappingFragment StoreEntitySet="Announcement">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Text" ColumnName="Text" />
@@ -12,7 +12,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CorrectOptions">
-      <EntityTypeMapping TypeName="DB43Model.CorrectOption">
+      <EntityTypeMapping TypeName="DB433Model.CorrectOption">
         <MappingFragment StoreEntitySet="CorrectOption">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Correctvalue" ColumnName="Correctvalue" />
@@ -21,7 +21,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Courses">
-      <EntityTypeMapping TypeName="DB43Model.Course">
+      <EntityTypeMapping TypeName="DB433Model.Course">
         <MappingFragment StoreEntitySet="Course">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
@@ -33,7 +33,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Departments">
-      <EntityTypeMapping TypeName="DB43Model.Department">
+      <EntityTypeMapping TypeName="DB433Model.Department">
         <MappingFragment StoreEntitySet="Department">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -42,7 +42,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Instructors">
-      <EntityTypeMapping TypeName="DB43Model.Instructor">
+      <EntityTypeMapping TypeName="DB433Model.Instructor">
         <MappingFragment StoreEntitySet="Instructor">
           <ScalarProperty Name="InstructorId" ColumnName="InstructorId" />
           <ScalarProperty Name="Qualification" ColumnName="Qualification" />
@@ -51,7 +51,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Options">
-      <EntityTypeMapping TypeName="DB43Model.Option">
+      <EntityTypeMapping TypeName="DB433Model.Option">
         <MappingFragment StoreEntitySet="Options">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="OptionValue" ColumnName="OptionValue" />
@@ -61,7 +61,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="People">
-      <EntityTypeMapping TypeName="DB43Model.Person">
+      <EntityTypeMapping TypeName="DB433Model.Person">
         <MappingFragment StoreEntitySet="Person">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -75,7 +75,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Questions">
-      <EntityTypeMapping TypeName="DB43Model.Question">
+      <EntityTypeMapping TypeName="DB433Model.Question">
         <MappingFragment StoreEntitySet="Questions">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -85,7 +85,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Quizs">
-      <EntityTypeMapping TypeName="DB43Model.Quiz">
+      <EntityTypeMapping TypeName="DB433Model.Quiz">
         <MappingFragment StoreEntitySet="Quiz">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Title" ColumnName="Title" />
@@ -96,7 +96,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Students">
-      <EntityTypeMapping TypeName="DB43Model.Student">
+      <EntityTypeMapping TypeName="DB433Model.Student">
         <MappingFragment StoreEntitySet="Student">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
@@ -107,7 +107,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="StudentRegisterCourses">
-      <EntityTypeMapping TypeName="DB43Model.StudentRegisterCourse">
+      <EntityTypeMapping TypeName="DB433Model.StudentRegisterCourse">
         <MappingFragment StoreEntitySet="StudentRegisterCourse">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
@@ -117,7 +117,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="StudentResults">
-      <EntityTypeMapping TypeName="DB43Model.StudentResult">
+      <EntityTypeMapping TypeName="DB433Model.StudentResult">
         <MappingFragment StoreEntitySet="StudentResult">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="StudentId" ColumnName="StudentId" />
@@ -128,7 +128,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="AssignInstructor" TypeName="DB43Model.AssignInstructor" StoreEntitySet="AssignInstructor">
+    <AssociationSetMapping Name="AssignInstructor" TypeName="DB433Model.AssignInstructor" StoreEntitySet="AssignInstructor">
       <EndProperty Name="Course">
         <ScalarProperty Name="Id" ColumnName="CourseId" />
       </EndProperty>

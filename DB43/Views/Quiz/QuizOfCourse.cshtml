@@ -1,9 +1,10 @@
 ﻿
 
+
 @model IEnumerable<DB43.Models.InstructorQuizViewModel>
 
 @{
-    ViewBag.Title = "Quiz_Index";
+    ViewBag.Title = "QuizOfCourse";
     Layout = "~/Views/Shared/_StudentLayout.cshtml";
 }
 
@@ -45,9 +46,9 @@
                     @Html.DisplayFor(modelItem => item.CourseId)
                 </td>*@
             <td>
-                @Html.ActionLink("Attempt", "DisplayQuiz", new { id = item.Id }) 
+                @Html.ActionLink("AttemptQuiz", "Get_QID", new { id = item.Id })
                 @*@Html.ActionLink("Show Questions", "Q_Index", new { id = item.Id })
-                @Html.ActionLink("Attempt Questions", "Attempt_Quiz", new { id = item.Id })*@
+                    @Html.ActionLink("Attempt Questions", "Attempt_Quiz", new { id = item.Id })*@
             </td>
         </tr>
     }
@@ -57,5 +58,7 @@
     @Html.ActionLink("Back to List", "Dep_Courses")
 
 </div>
+
+
 
 

@@ -1,10 +1,8 @@
-﻿using CrystalDecisions.CrystalReports.Engine;
-using DB43.Models;
+﻿using DB43.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,9 +12,9 @@ namespace DB43.Controllers
     public class RegisterController : Controller
     {
 
-        DB43Entities1 db = new DB43Entities1();
+        DB433Entities db = new DB433Entities();
         //public string connection = "Data Source=DESKTOP-GP94IEM\\SQLEXPRESS;Initial Catalog=DB433;Integrated Security=True";
-        public string connection = "Data Source=DESKTOP-QH0J28G;Initial Catalog=DB43;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework";
+        public string connection = "Data Source=DESKTOP-G0K5DQK;Initial Catalog=DB433;Integrated Security=True";
 
         public static int id;
         public static int loginId=3;
@@ -69,30 +67,7 @@ namespace DB43.Controllers
 
             return View(lists);
         }
-        //for reprts
-        public ActionResult ExportStudents()
-        {
-            List<Person> personss = new List<Person>();
-            personss = db.People.ToList();
 
-
-            ReportDocument rd = new ReportDocument();
-            //  rd.Load(Path.Combine(Server.MapPath("Student.rpt")));
-            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "StudentRegistered.rpt"));
-            rd.SetDataSource(personss);
-            Response.Buffer = false;
-            Response.ClearContent();
-            Response.ClearHeaders();
-
-            try
-            {
-                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-                stream.Seek(0, SeekOrigin.Begin);
-                return File(stream, "application/pdf", "Student.pdf");
-
-            }
-            catch { throw; }
-        }
         // for teachers 
 
 
@@ -483,6 +458,38 @@ namespace DB43.Controllers
 
         }
 
+
+        public ActionResult RegisteredStudents()
+        {
+            SqlConnection conn = new SqlConnection(connection);
+            string query;
+            SqlCommand SqlCommand;
+
+            List<StudentsRegisteredInCourse> lists = new List<StudentsRegisteredInCourse>();
+            //Open the connection to db
+            conn.Open();
+            //Generating the query to fetch the contact details
+            query = "select Person.FirstName + ' '+ Person.LastName as Name,Student.RegistrationNumber,Course.Title from AssignInstructor inner join Course on AssignInstructor.CourseId=Course.Id inner join StudentRegisterCourse on StudentRegisterCourse.CourseId=Course.Id inner join Student on Student.PersonId=StudentRegisterCourse.StudentId inner join Person on Person.Id =Student.PersonId where  AssignInstructor.InstructorId='"+loginId+"'";
+
+            SqlCommand = new SqlCommand(query, conn);
+            SqlDataReader rdr = SqlCommand.ExecuteReader();
+            while (rdr.Read())
+            {
+                var studnt = new StudentsRegisteredInCourse();
+
+              
+                studnt.Name = rdr[0].ToString();
+                studnt.regNo = rdr[1].ToString();
+                studnt.Course_title = rdr[2].ToString();
+            
+
+                lists.Add(studnt);
+            }
+
+            return View(lists);
+
+
+        }
 
     }
     }

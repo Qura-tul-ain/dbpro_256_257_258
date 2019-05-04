@@ -45,9 +45,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -259,8 +256,10 @@
     <Compile Include="Models\OptionViewModel.cs" />
     <Compile Include="Models\QuestionOptionModel.cs" />
     <Compile Include="Models\QuizQuestionsViewModel.cs" />
+    <Compile Include="Models\QuizWithQuestionsViewModel.cs" />
     <Compile Include="Models\RegisterCourseViewModels.cs" />
     <Compile Include="Models\StudentQuizViewModel.cs" />
+    <Compile Include="Models\StudentsRegisteredInCourse.cs" />
     <Compile Include="Option.cs">
       <DependentUpon>DB43.tt</DependentUpon>
     </Compile>
@@ -273,24 +272,6 @@
     </Compile>
     <Compile Include="Quiz.cs">
       <DependentUpon>DB43.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\CourseReport.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CourseReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\CrystalReport1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CrystalReport1.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reports\StudentRegistered.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>StudentRegistered.rpt</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="Student.cs">
@@ -698,6 +679,9 @@
     <Content Include="Views\Home\DIisplayCourses.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Course\Edit.cshtml" />
+    <Content Include="Views\Quiz\QuizOfCourse.cshtml" />
+    <Content Include="Views\Quiz\DisplayQUestionsOfQuiz.cshtml" />
+    <Content Include="Views\Register\RegisteredStudents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -718,21 +702,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Reports\CourseReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CourseReport.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\CrystalReport1.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CrystalReport1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\StudentRegistered.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>StudentRegistered.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

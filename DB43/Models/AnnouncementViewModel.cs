@@ -10,7 +10,9 @@ namespace DB43.Models
     {
         [Key]
         public int Id { get; set; }
-         public string text { get; set; }
+        [Required]
+        [Display(Name = "Announcement")]
+        public string text { get; set; }
         public  int personId { get; set; }
         public int CourseId { get; set; }
         public string CourseName { get; set; }

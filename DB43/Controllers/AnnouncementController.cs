@@ -14,8 +14,8 @@ namespace DB43.Controllers
 {
     public class AnnouncementController : Controller
     {
-        private DB43Entities1 db = new DB43Entities1();
-        public string connection = " Data Source=DESKTOP-QH0J28G;Initial Catalog=DB43;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework";
+        private DB433Entities db = new DB433Entities();
+        public string connection = " Data Source = DESKTOP-G0K5DQK; Initial Catalog = DB433; Integrated Security = True";
         public static int cid;
 
         public ActionResult Get_CId(int id)

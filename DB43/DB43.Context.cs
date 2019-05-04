@@ -13,10 +13,10 @@ namespace DB43
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DB43Entities1 : DbContext
+    public partial class DB433Entities : DbContext
     {
-        public DB43Entities1()
-            : base("name=DB43Entities1")
+        public DB433Entities()
+            : base("name=DB433Entities")
         {
         }
     

@@ -4,14 +4,30 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DB43.Models;
+using System.Data.SqlClient;
 
 namespace DB43.Controllers
 {
     public class QuizController : Controller
     {
 		// GET: Quiz
-		DB43Entities1 db = new DB43Entities1();
+		DB433Entities db = new DB433Entities();
+        public string connection = "Data Source=DESKTOP-G0K5DQK;Initial Catalog=DB433;Integrated Security=True";
         public static int cid;
+        public static int course_id;
+        public static int quiz_id;
+        public ActionResult Get_CID(int id)
+        {
+            course_id = id;
+            return RedirectToAction("QuizOfCourse", new { id = course_id });
+
+        }
+        public ActionResult Get_QID(int id)
+        {
+            quiz_id = id;
+            return RedirectToAction("DisplayQUestionsOfQuiz", new { quizId = quiz_id });
+
+        }
         public ActionResult Index(int id)
         {
 			List<Quiz> q = db.Quizs.ToList();
@@ -356,68 +372,166 @@ namespace DB43.Controllers
 				return View("LimitExceed");
 			}
 		}
-		public ActionResult Attempt_Quiz(int id)
-		{
-		//	var Quix = db.Quizs.Find(id);
-		//	List<Question> Q = db.Questions.ToList();
-		//	List<Option> O = db.Options.ToList();
-		//	List<OptionViewModel> h = new List<OptionViewModel>();
-		//	OptionViewModel n = new OptionViewModel();
-		//	foreach (Option i in O)
-		//	{
-		//		n.Id = i.Id;
-		//		n.IsAnswer = Convert.ToBoolean(i.IsAnswer);
-		//		n.ischecked = false;
-		//		n.OptionValue = i.OptionValue;
-		//		n.QuestionsId = i.QuestionsId;
-		//		h.Add(new OptionViewModel
-		//		{
-		//			Id = n.Id,
-		//			IsAnswer = n.IsAnswer,
-		//			ischecked = n.ischecked,
-		//			OptionValue = n.OptionValue,
-		//			QuestionsId = n.QuestionsId
-		//		});
 
-		//	}
-		//	List<StudentQuizViewModel> G = new List<StudentQuizViewModel>();
-		//	StudentQuizViewModel v = new StudentQuizViewModel();
-		//	v.Id = Quix.Id;
-		//	v.Title = Quix.Title;
-		//	v.TotalMarks = Quix.TotalMarks;
-		//	QuestionOptionModel b = new QuestionOptionModel();
-		//	foreach (Question q in Q)
-		//	{
-		//		if (q.QuizId == id)
-		//		{
-		//			b.Id = q.Id;
-		//			b.Q_TotalMarks = q.TotalMarks;
-		//			b.Name = q.Name;
-		//			v.Questions.Add(new QuizQuestionsViewModel
-  //                  {
-		//				Id = b.Id,
-		//				Q_TotalMarks = b.Q_TotalMarks,
-		//				Name = b.Name
-		//			});
-		//		}
-		//	}
-		//	foreach (OptionViewModel k in h)
-		//	{
-		//		foreach (QuizQuestionsViewModel e in v.Questions)
-		//		{
-		//			if (k.QuestionsId == e.Id)
-		//			{
-		//				e._option.Add(k);
-		//			}
-		//		}
 
-		//	}
+        public ActionResult QuizOfCourse(int id)
+        {
+            List<Quiz> G = db.Quizs.ToList();
+            List<InstructorQuizViewModel> j = new List<InstructorQuizViewModel>();
+            InstructorQuizViewModel m = new InstructorQuizViewModel();
+            foreach (Quiz q in G)
+            {
+                if (q.CourseId == id)
+                {
+                    m.DateCreated = q.DateCreated;
+                    m.Title = q.Title;
+                    m.CourseId = q.CourseId;
+                    m.TotalMarks = q.TotalMarks;
+                    m.Id = q.Id;
+                    j.Add(new InstructorQuizViewModel
+                    {
+                        Id = m.Id,
+                        TotalMarks = m.TotalMarks,
+                        DateCreated = m.DateCreated,
+                        CourseId = m.CourseId,
+                        Title = m.Title
 
-			return View();
-		}
+                    });
+
+                }
+            }
+            return View(j);
+        }
+
+
+        public ActionResult DisplayQUestionsOfQuiz(int quizId)
+        {
+           
+            List<Quiz> G = db.Quizs.ToList();
+            List<Question> qstion = db.Questions.ToList();
+            List<Option> options = db.Options.ToList();
+            List<InstructorQuizViewModel> j = new List<InstructorQuizViewModel>();
+            var quixx = new QuizWithQuestionsViewModel();
+           // List<QuizWithQuestionsViewModel> qz = new List<QuizWithQuestionsViewModel>();
+            InstructorQuizViewModel m = new InstructorQuizViewModel();
+          
+          
+            List<OptionViewModel> optionlist = new List<OptionViewModel>();
+            List<QuizQuestionsViewModel> questionlist = new List<QuizQuestionsViewModel>();
+             foreach (Quiz q in G)
+            {
+                if (q.Id == quizId)
+                {
+
+                    foreach(Question qst in qstion)
+                    {
+                        QuizQuestionsViewModel qobj = new QuizQuestionsViewModel();
+                        if (qst.QuizId==q.Id)
+                        {
+                            qobj.Name = qst.Name;
+                            qobj.Q_TotalMarks = qst.TotalMarks;
+                            qobj.QuizId = qst.QuizId;
+                            qobj.Id = qst.Id;
+
+                            foreach(Option opt in options)
+                            {
+                                OptionViewModel optobj = new OptionViewModel();
+                                if (opt.QuestionsId==qst.Id)
+                                {
+                                    optobj.OptionValue = opt.OptionValue;
+                                    optobj.IsAnswer = Convert.ToBoolean(opt.IsAnswer);
+                                    optobj.QuestionsId = qst.Id;
+                                    optobj.Id = opt.Id;
+                                }
+                                optionlist.Add(optobj);
+                            }
+
+                            questionlist.Add(qobj);
+                        }
+                       
+                    }
+                   
+
+                }
+                quixx.questions = questionlist;
+                quixx.options = optionlist;
+
+            }
+            return View(quixx);
+
+
+
+        }
+
+  //      public ActionResult Attempt_Quiz()
+		//{
+
+
+
+
+            //	var Quix = db.Quizs.Find(id);
+            //	List<Question> Q = db.Questions.ToList();
+            //	List<Option> O = db.Options.ToList();
+            //	List<OptionViewModel> h = new List<OptionViewModel>();
+            //	OptionViewModel n = new OptionViewModel();
+            //	foreach (Option i in O)
+            //	{
+            //		n.Id = i.Id;
+            //		n.IsAnswer = Convert.ToBoolean(i.IsAnswer);
+            //		n.ischecked = false;
+            //		n.OptionValue = i.OptionValue;
+            //		n.QuestionsId = i.QuestionsId;
+            //		h.Add(new OptionViewModel
+            //		{
+            //			Id = n.Id,
+            //			IsAnswer = n.IsAnswer,
+            //			ischecked = n.ischecked,
+            //			OptionValue = n.OptionValue,
+            //			QuestionsId = n.QuestionsId
+            //		});
+
+            //	}
+            //	List<StudentQuizViewModel> G = new List<StudentQuizViewModel>();
+            //	StudentQuizViewModel v = new StudentQuizViewModel();
+            //	v.Id = Quix.Id;
+            //	v.Title = Quix.Title;
+            //	v.TotalMarks = Quix.TotalMarks;
+            //	QuestionOptionModel b = new QuestionOptionModel();
+            //	foreach (Question q in Q)
+            //	{
+            //		if (q.QuizId == id)
+            //		{
+            //			b.Id = q.Id;
+            //			b.Q_TotalMarks = q.TotalMarks;
+            //			b.Name = q.Name;
+            //			v.Questions.Add(new QuizQuestionsViewModel
+            //                  {
+            //				Id = b.Id,
+            //				Q_TotalMarks = b.Q_TotalMarks,
+            //				Name = b.Name
+            //			});
+            //		}
+            //	}
+            //	foreach (OptionViewModel k in h)
+            //	{
+            //		foreach (QuizQuestionsViewModel e in v.Questions)
+            //		{
+            //			if (k.QuestionsId == e.Id)
+            //			{
+            //				e._option.Add(k);
+            //			}
+            //		}
+
+            //	}
+
+  //          return View();
+		//}
+
+
+
 
 		[HttpPost]
-		public ActionResult Attempt_Quiz(int id, StudentQuizViewModel d)
+		public ActionResult Attempt_Quiz()
 		{
             //StudentQuizViewModel f = new StudentQuizViewModel();
             //OptionViewModel h = new OptionViewModel();

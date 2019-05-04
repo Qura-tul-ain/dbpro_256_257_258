@@ -1,0 +1,77 @@
+﻿@model DB43.Models.QuizWithQuestionsViewModel
+
+@{
+    ViewBag.Title = "DisplayQUestionsOfQuiz";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+
+
+<div>
+    <h4>Questions</h4>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+</div>
+@using (Html.BeginForm("Attempt_Quiz", "Quiz", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+<table>
+    <tr>
+        <th>
+        <span>  Question </span>  
+         
+        </th>
+        <th>
+          <span> Marks</span>
+        </th>
+      
+      
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.questions)
+{
+    
+       <tr>
+        <td>
+         
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+        
+            @Html.DisplayFor(modelItem => item.Q_TotalMarks)
+        </td>
+   </tr>
+      <tr>  
+        <td>
+            @foreach (var item1 in Model.options)
+            {
+                if (item.Id == item1.QuestionsId)
+                {
+         <td>
+             @*<input type="radio"  value="@item1.OptionValue" name="@item1.OptionValue" id="@item1.Id"> @item1.OptionValue*@
+          @Html.RadioButtonFor(modelItem => item1.OptionValue, item1.Id)  <span> @item1.OptionValue </span>
+        </td>
+                }
+            }
+        </td>
+      
+  
+     
+    </tr>
+}
+
+</table>
+
+  @*<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" class="btn btn-default" value="Submit" />
+    </div>
+  </div>*@
+}
+
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")*@
+</p>
