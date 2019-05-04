@@ -1,8 +1,10 @@
-﻿using DB43.Models;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using DB43.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,9 +14,9 @@ namespace DB43.Controllers
     public class RegisterController : Controller
     {
 
-        DB433Entities db = new DB433Entities();
+        DB43Entities1 db = new DB43Entities1();
         //public string connection = "Data Source=DESKTOP-GP94IEM\\SQLEXPRESS;Initial Catalog=DB433;Integrated Security=True";
-        public string connection = "Data Source=DESKTOP-G0K5DQK;Initial Catalog=DB433;Integrated Security=True";
+        public string connection = "Data Source=DESKTOP-QH0J28G;Initial Catalog=DB43;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework";
 
         public static int id;
         public static int loginId=3;
@@ -67,7 +69,30 @@ namespace DB43.Controllers
 
             return View(lists);
         }
+        //for reprts
+        public ActionResult ExportStudents()
+        {
+            List<Person> personss = new List<Person>();
+            personss = db.People.ToList();
 
+
+            ReportDocument rd = new ReportDocument();
+            //  rd.Load(Path.Combine(Server.MapPath("Student.rpt")));
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "StudentRegistered.rpt"));
+            rd.SetDataSource(personss);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf", "Student.pdf");
+
+            }
+            catch { throw; }
+        }
         // for teachers 
 
 

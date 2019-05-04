@@ -6,13 +6,15 @@ using System.Web;
 using System.Web.Mvc;
 using DB43.Models;
 using System.Data.SqlClient;
+using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
 
 namespace DB43.Controllers
 {
     public class CourseController : Controller
     {
-		DB433Entities db = new DB433Entities();
-        public string connection = "Data Source=DESKTOP-G0K5DQK;Initial Catalog=DB433;Integrated Security=True";
+		DB43Entities1 db = new DB43Entities1();
+        public string connection = "Data Source=DESKTOP-QH0J28G;Initial Catalog=DB43;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework";
 
         public static int Cid;
         public ActionResult Get_Id(int id)
@@ -94,10 +96,31 @@ namespace DB43.Controllers
 			//return View(viewList);
 		}
 
+        //Report
+        public ActionResult ExportCourses()
+        {
+            List<Course> allCourses = new List<Course>();
+            allCourses = db.Courses.ToList();
 
 
-		// GET: Course/Details/5
-		public ActionResult Details(int CId)
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CourseReport.rpt"));
+            rd.SetDataSource(allCourses);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf", "Courses.pdf");
+            }
+            catch { throw; }
+        }
+
+        // GET: Course/Details/5
+        public ActionResult Details(int CId)
         {
             SqlConnection con = new SqlConnection(connection);
             con.Open();
@@ -166,6 +189,7 @@ namespace DB43.Controllers
                 return View();
             }
         }
+        //Report
 
         // GET: Course/Edit/5
         public ActionResult Edit(int id)

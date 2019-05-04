@@ -5,41 +5,45 @@
     Layout = "~/Views/Shared/_StudentLayout.cshtml";
 }
 
+<h2>Person List</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
 
-<section class="site-hero overlay" data-stellar-background-ratio="0.5" style="background-image: url('../../university/university/images/3047128_students.jpg');">
-    <div class="container">
-        <div class="row align-items-center justify-content-center site-hero-sm-inner">
-            <div class="col-md-7 text-center">
+    <div><a href="@Url.Action("ExportStudents")"> Report PDF </a></div>
+    <section class="site-hero overlay" data-stellar-background-ratio="0.5" style="background-image: url('../../university/university/images/3047128_students.jpg');">
+        <div class="container">
+            <div class="row align-items-center justify-content-center site-hero-sm-inner">
+                <div class="col-md-7 text-center">
 
-                <div class="mb-5 element-animate">
-                    <h1 class="mb-2">INSTITUTE MANAGEMENT SYSTEM</h1>
-                    <!--<p class="bcrumb"><a href="index.html">Home</a> <span class="sep ion-android-arrow-dropright px-2"></span>  <span class="current">Contact Us</span></p>-->
+                    <div class="mb-5 element-animate">
+                        <h1 class="mb-2">INSTITUTE MANAGEMENT SYSTEM</h1>
+                        <!--<p class="bcrumb"><a href="index.html">Home</a> <span class="sep ion-android-arrow-dropright px-2"></span>  <span class="current">Contact Us</span></p>-->
+                    </div>
+
                 </div>
-
             </div>
         </div>
+    </section>
+
+
+
+    <div class="sec-title p-b-60">
+        <h3 class="m-text5 t-center">
+            Short Courses
+        </h3>
     </div>
-</section>
 
-
-
-<div class="sec-title p-b-60">
-    <h3 class="m-text5 t-center">
-        Short Courses
-    </h3>
-</div>
-
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-sm-4">
-            <div class="block-19">
-                <figure>
-                    <img src="@Url.Content(item.CourseImage)" height="350" width="450" class="img-fluid" />
-                </figure>
-                <div class="text">
-                    <h2 class="heading"><a href="#">@item.Title</a></h2>
-                    <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-4">
+                <div class="block-19">
+                    <figure>
+                        <img src="@Url.Content(item.CourseImage)" height="350" width="450" class="img-fluid" />
+                    </figure>
+                    <div class="text">
+                        <h2 class="heading"><a href="#">@item.Title</a></h2>
+<p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
                     <div class="meta d-flex align-items-center">
                         <div class="number">
                             <a href="~/Register/CourseRegister/@item.Id" class="price text-right"><span>Register Course</span></a>

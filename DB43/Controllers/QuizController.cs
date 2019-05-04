@@ -10,7 +10,7 @@ namespace DB43.Controllers
     public class QuizController : Controller
     {
 		// GET: Quiz
-		DB433Entities db = new DB433Entities();
+		DB43Entities1 db = new DB43Entities1();
         public static int cid;
         public ActionResult Index(int id)
         {
