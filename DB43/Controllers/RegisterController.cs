@@ -95,6 +95,29 @@ namespace DB43.Controllers
             catch { throw; }
         }
 
+        public ActionResult ExportStudent()
+        {
+            List<Person> allTeacher = new List<Person>();
+            allTeacher = db.People.ToList();
+
+
+            ReportDocument rd = new ReportDocument();
+            //  rd.Load(Path.Combine(Server.MapPath("Student.rpt")));
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "Student.rpt"));
+            rd.SetDataSource(allTeacher);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf", "Student.pdf");
+            }
+            catch { throw; }
+        }
+
 
         public ActionResult DIisplayCoursesToTeacher()
         {

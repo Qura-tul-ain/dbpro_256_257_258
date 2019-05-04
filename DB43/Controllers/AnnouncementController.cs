@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using DB43;
 using DB43.Models;
 using System.Data.SqlClient;
+using CrystalDecisions.CrystalReports.Engine;
+using System.IO;
 
 namespace DB43.Controllers
 {
@@ -51,6 +53,30 @@ namespace DB43.Controllers
             }
 
             return View(lists);
+        }
+
+        //Report
+        public ActionResult ExportAnnouncement()
+        {
+            List<Announcement> AllAnn = new List<Announcement>();
+            AllAnn = db.Announcements.ToList();
+
+
+            ReportDocument rd = new ReportDocument();
+            //  rd.Load(Path.Combine(Server.MapPath("Student.rpt")));
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "AnnouncementList.rpt"));
+            rd.SetDataSource(AllAnn);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf", "Announcment.pdf");
+            }
+            catch { throw; }
         }
 
         // GET: Announcement/Details/5
