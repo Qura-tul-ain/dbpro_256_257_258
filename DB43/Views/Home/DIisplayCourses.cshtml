@@ -2,8 +2,8 @@
 
 @model IEnumerable<DB43.Models.AddCourseViewModels>
 @{
-    ViewBag.Title = "DIisplayCoursesToTeacher";
-    Layout = "~/Views/Shared/Teacherlayout.cshtml";
+    ViewBag.Title = "DIisplayCourses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -43,9 +43,9 @@
                     <h2 class="heading"><a href="#">@item.Title</a></h2>
                     <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
                     <div class="meta d-flex align-items-center">
-                             
-                        <a href="~/Course/Get_CID/@item.Id" class="price text-right"><span>View Details</span></a>
-                 
+
+                        <a href="~/Home/Get_ID/@item.Id" class="price text-right"><span>View Details</span></a>
+
                     </div>
                 </div>
             </div>

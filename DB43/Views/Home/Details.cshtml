@@ -1,8 +1,10 @@
 ﻿
+
+
 @model  IEnumerable<DB43.Models.AddCourseViewModels>
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/Adminlayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <section class="site-hero overlay" data-stellar-background-ratio="0.5" style="background-image: url('../../university/university/images/3047128_students.jpg');">
@@ -20,8 +22,8 @@
     </div>
 </section>
 <br />
-	<h4>Details</h4>
-	<hr />
+<h4>Details</h4>
+<hr />
 <table class="table">
     <tr>
         <th>
@@ -50,15 +52,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Fee)
             </td>
-         
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
+
+           
         </tr>
     }
 
 </table>
 
 
-   
+

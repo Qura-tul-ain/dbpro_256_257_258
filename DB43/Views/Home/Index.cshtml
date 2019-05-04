@@ -16,7 +16,54 @@
 		</div>
 	</div>
 	</section>
-	<!-- END section -->
+<br />
+<h2>DEPARTMENTS</h2>
+<div class="row">
+    @foreach (var item in Model)
+    {
+
+        <div class="col-sm-4">
+            <div class="block-19">
+                <figure>
+                    <img src="@Url.Content(item.Image)" height="350" width="450" class="img-fluid" />
+                </figure>
+                <div class="text">
+                    <h2 class="heading">@item.Name</h2>
+                    <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+                    <div class="meta d-flex align-items-center">
+
+                        <a href="~/Home/DIisplayCourses/@item.Id" class="price text-right"><span>View Courses</span></a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        @*<div class="col-sm-4">
+                <div class="block-19">
+
+                    <div class="text">
+                        <h2 class="heading">@item.Name</h2>
+                        <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+                        <div class="meta d-flex align-items-center">
+
+                            <button onclick="location.href='@Url.Action("Index", "Course", new { id = item.Id})';return false;" class="btn btn-default">View Course</button>
+                            <button onclick="location.href='@Url.Action("Index", "Quiz", new { id = item.Id})';return false;" class="btn btn-default">View</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+    }
+</div>
+
+
+
+
+	@*<!-- END section -->
 
 	<section class="site-section pt-3 element-animate">
 		<div class="container">
@@ -320,5 +367,5 @@
 			</div>
 		</div>
 	</div>
-	<!-- END .block-2 -->
+	<!-- END .block-2 -->*@
 	

@@ -1,9 +1,12 @@
 ﻿
 
+
+
+
 @model IEnumerable<DB43.Models.AddCourseViewModels>
 @{
-    ViewBag.Title = "DIisplayCoursesToTeacher";
-    Layout = "~/Views/Shared/Teacherlayout.cshtml";
+    ViewBag.Title = "RegisteredCourses";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
 }
 
 
@@ -21,15 +24,10 @@
         </div>
     </div>
 </section>
-<h2>Display</h2>
 
 
 
-<div class="sec-title p-b-60">
-    <h3 class="m-text5 t-center">
-        Short Courses
-    </h3>
-</div>
+<h2>RegisteredCourses</h2>
 
 <div class="row">
     @foreach (var item in Model)
@@ -43,9 +41,10 @@
                     <h2 class="heading"><a href="#">@item.Title</a></h2>
                     <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
                     <div class="meta d-flex align-items-center">
-                             
-                        <a href="~/Course/Get_CID/@item.Id" class="price text-right"><span>View Details</span></a>
-                 
+                      
+                        <div>
+                            <a href="~/Course/Get_CID/@item.Id" class="price text-right"><span>View Details</span></a>
+                        </div>
                     </div>
                 </div>
             </div>

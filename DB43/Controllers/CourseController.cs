@@ -23,25 +23,33 @@ namespace DB43.Controllers
             return RedirectToAction("Details",new { CId=id});
         }
 
-  //      public ActionResult CourseRegister(int id)
-		//{
-		//	Course c = new Course();
-		//	c = db.Courses.Find(id);
+        public ActionResult Get_CID(int id)
+        {
 
-		//	StudentRegisterCourse g = new StudentRegisterCourse();
-		//	g.CourseId = c.Id;
-		//	g.DepartmentId = c.DepartmentId;
+            Cid = id;// global variable
 
-		//	//g.DepartmentId = 
-		//	//var user = db.People.
-		//	var Get_Student = db.People.Single(u => u.Email == "farah@gmail.com");
-		//	g.StudentId = Get_Student.Id;
-		//	db.StudentRegisterCourses.Add(g);
-		//	db.SaveChanges();
-		//	return View("CourseRegister");
-		//}
-		// GET: Course
-		public ActionResult Index(int id)
+            return RedirectToAction("DetailsForStudents", new { CId = id });
+        }
+
+        //      public ActionResult CourseRegister(int id)
+        //{
+        //	Course c = new Course();
+        //	c = db.Courses.Find(id);
+
+        //	StudentRegisterCourse g = new StudentRegisterCourse();
+        //	g.CourseId = c.Id;
+        //	g.DepartmentId = c.DepartmentId;
+
+        //	//g.DepartmentId = 
+        //	//var user = db.People.
+        //	var Get_Student = db.People.Single(u => u.Email == "farah@gmail.com");
+        //	g.StudentId = Get_Student.Id;
+        //	db.StudentRegisterCourses.Add(g);
+        //	db.SaveChanges();
+        //	return View("CourseRegister");
+        //}
+        // GET: Course
+        public ActionResult Index(int id)
 		{
 			var Get_Student = db.People.Single(u => u.Email == "farah@gmail.com");
 
@@ -113,6 +121,30 @@ namespace DB43.Controllers
             return View(lists);
         }
 
+        public ActionResult DetailsForStudents(int CID)
+        {
+            SqlConnection con = new SqlConnection(connection);
+            con.Open();
+
+            List<AddCourseViewModels> lists = new List<AddCourseViewModels>();
+            string query = "SELECT * from Course where Id='" + CID + "'";
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                var course = new AddCourseViewModels();
+                course.Id = Convert.ToInt32(rdr[0]);
+                course.Title = rdr[1].ToString();
+                course.Credits = rdr[2].ToString();
+                course.Fee = Convert.ToInt32(rdr[3]);
+                course.DepartmentId = Convert.ToInt32(rdr[4]);
+                course.CourseImage = rdr[5].ToString();
+                lists.Add(course);
+            }
+            rdr.Close();
+            return View(lists);
+        }
+
         // GET: Course/Create
         public ActionResult Create()
         {
@@ -138,18 +170,42 @@ namespace DB43.Controllers
         // GET: Course/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            SqlConnection con = new SqlConnection(connection);
+            con.Open();
+         
+            string query = "SELECT * from Course where Id='" + id + "'";
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataReader rdr = cmd.ExecuteReader();
+            var course = new AddCourseViewModels();
+            while (rdr.Read())
+            {
+               
+                course.Id = Convert.ToInt32(rdr[0]);
+                course.Title = rdr[1].ToString();
+                course.Credits = rdr[2].ToString();
+                course.Fee = Convert.ToInt32(rdr[3]);
+                course.DepartmentId = Convert.ToInt32(rdr[4]);
+                course.CourseImage = rdr[5].ToString();
+             
+            }
+            rdr.Close();
+            return View(course);
+        
         }
 
         // POST: Course/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id,AddCourseViewModels course)
         {
             try
             {
+                SqlConnection con = new SqlConnection(connection);
+                con.Open();
                 // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                string query = "UPDATE Course SET Title='"+course.Title+ "', Credits='" + course.Credits + "',Fee='" + course.Fee + "'  where Id='" + id + "'";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.ExecuteNonQuery();
+                return RedirectToAction("Details",new { CId=id});
             }
             catch
             {

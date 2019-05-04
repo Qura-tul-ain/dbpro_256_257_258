@@ -17,7 +17,7 @@ namespace DB43.Controllers
         public string connection = "Data Source=DESKTOP-G0K5DQK;Initial Catalog=DB433;Integrated Security=True";
 
         public static int id;
-        public static int loginId;
+        public static int loginId=3;
         public static int DeptId;
         public static int no;
         public ActionResult Get_Id(int id)
@@ -31,7 +31,7 @@ namespace DB43.Controllers
             }
             else
             {
-                return RedirectToAction("Index2");
+                return RedirectToAction("DIisplayCoursesToTeacher");
             }
      
         }
@@ -49,8 +49,8 @@ namespace DB43.Controllers
             List<AddCourseViewModels> lists = new List<AddCourseViewModels>();
 
             //Generating the query to fetch the contact details
-            query = " SELECT * FROM Course where DepartmentId= ' " + DeptId + "' ";
-
+       
+            query = "SELECT * FROM Course WHERE NOT EXISTS (SELECT * FROM StudentRegisterCourse where StudentRegisterCourse.CourseId = Course.Id  and StudentRegisterCourse.StudentId = '" + loginId + "') and Course.DepartmentId='"+DeptId+"' ";
             SqlCommand = new SqlCommand(query, conn);
             SqlDataReader rdr = SqlCommand.ExecuteReader();
             while (rdr.Read())
@@ -71,7 +71,7 @@ namespace DB43.Controllers
         // for teachers 
 
 
-        public ActionResult DIisplayCoursesToTeacher(int id)
+        public ActionResult DIisplayCoursesToTeacher()
         {
 
 
@@ -84,7 +84,7 @@ namespace DB43.Controllers
             List<AddCourseViewModels> lists = new List<AddCourseViewModels>();
 
             //Generating the query to fetch the contact details
-            query = " SELECT * FROM Course where DepartmentId= ' " + DeptId + "' ";
+            query = " SELECT* FROM Course where DepartmentId = ' " + DeptId + "' ";
 
             SqlCommand = new SqlCommand(query, conn);
             SqlDataReader rdr = SqlCommand.ExecuteReader();
@@ -138,61 +138,71 @@ namespace DB43.Controllers
         {
             if (no == 1)
             {
-                SqlConnection con = new SqlConnection(connection);
-                con.Open();
 
-                List<RegisterViewModel> lists = new List<RegisterViewModel>();
-                string query = "SELECT FirstName,LastName,Contact,Email,Gender,RegistrationNumber from person inner join student on Person.Id=Student.PersonId and Person.Id='" + loginId + "'";
-                SqlCommand cmd = new SqlCommand(query, con);
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    var std = new RegisterViewModel();
-                    std.FirstName = rdr[0].ToString();
-                    std.LastName = rdr[1].ToString();
-                    std.Contact = rdr[2].ToString();
-                    std.Email = rdr[3].ToString();
-                    std.Gender = rdr[4].ToString();
-                    std.RegistrationNumber = rdr[5].ToString();
-                    lists.Add(std);
-                }
-                rdr.Close();
-                return View(lists);
+                return RedirectToAction("StudentData");
             }
 
             else
             {
-                SqlConnection con = new SqlConnection(connection);
-                con.Open();
-
-                List<RegisterViewModel> lists = new List<RegisterViewModel>();
-                string query = "SELECT FirstName,LastName,Contact,Email,Gender,Qualification from Person inner join Instructor on Person.Id=Instructor.InstructorId and Person.Id='" + loginId + "'";
-                SqlCommand cmd = new SqlCommand(query, con);
-                SqlDataReader rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    var std = new RegisterViewModel();
-                    std.FirstName = rdr[0].ToString();
-                    std.LastName = rdr[1].ToString();
-                    std.Contact = rdr[2].ToString();
-                    std.Email = rdr[3].ToString();
-                    std.Gender = rdr[4].ToString();
-                    std.Qualification = rdr[5].ToString();
-                    lists.Add(std);
-                }
-                rdr.Close();
-                return RedirectToAction("TeacherData", new { list = lists });
+               
+                return RedirectToAction("TeacherData");
             }
 
 
+
+        }
+
+        public ActionResult StudentData(List<RegisterViewModel> list)
+        {
+            SqlConnection con = new SqlConnection(connection);
+            con.Open();
+
+            List<RegisterViewModel> lists = new List<RegisterViewModel>();
+            string query = "SELECT FirstName,LastName,Contact,Email,Gender,RegistrationNumber from person inner join student on Person.Id=Student.PersonId and Person.Id='" + loginId + "'";
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                var std = new RegisterViewModel();
+                std.FirstName = rdr[0].ToString();
+                std.LastName = rdr[1].ToString();
+                std.Contact = rdr[2].ToString();
+                std.Email = rdr[3].ToString();
+                std.Gender = rdr[4].ToString();
+                std.RegistrationNumber = rdr[5].ToString();
+                lists.Add(std);
+            }
+            rdr.Close();
+            return View(lists);
 
         }
 
 
         public ActionResult TeacherData(List<RegisterViewModel> list)
         {
-            return View(list);
-        }
+            SqlConnection con = new SqlConnection(connection);
+            con.Open();
+
+            List<RegisterViewModel> lists = new List<RegisterViewModel>();
+            string query = "SELECT Person.Id,FirstName,LastName,Contact,Email,Gender,Qualification from Person inner join Instructor on Person.Id=Instructor.InstructorId and Person.Id='" + loginId + "'";
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                var std = new RegisterViewModel();
+                std.Id = Convert.ToInt32(rdr[0]);
+                std.FirstName = rdr[1].ToString();
+                std.LastName = rdr[2].ToString();
+                std.Contact = rdr[3].ToString();
+                std.Email = rdr[4].ToString();
+                std.Gender = rdr[5].ToString();
+                std.Qualification = rdr[6].ToString();
+                lists.Add(std);
+            }
+            rdr.Close();
+            return View(lists);
+        
+    }
 
 
         public ActionResult Register()
@@ -231,7 +241,7 @@ namespace DB43.Controllers
 
 
                 ModelState.Clear();
-                ViewBag.Message = obj.FirstName + " " + obj.LastName + "Successfully Registered";
+               // ViewBag.Message = obj.FirstName + " " + obj.LastName + "Successfully Registered";
                 return RedirectToAction("Login");
             }
             catch (Exception ex)
@@ -262,7 +272,7 @@ namespace DB43.Controllers
                 {
                     loginId = Convert.ToInt32(rdr[0]);
                     no = 1;
-                    return RedirectToAction("IndexStudent");
+                    return RedirectToAction("RegisteredCourses");
                 }
                 else if (rdr[7].ToString() == "Teacher")
                 {
@@ -279,23 +289,17 @@ namespace DB43.Controllers
 
             }
             rdr.Close();
-            ViewBag.Message("Incorrect password or Email ,please try again");
+            ViewBag.Message="Incorrect password or Email ,please try again";
             return View(obj);
 
 
         }
 
 
-        public ActionResult LoggedIn()
+        public ActionResult LoggedOut()
         {
-            if (Session["Id"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Login");
-            }
+            loginId = 3;
+          return  RedirectToAction("Index", "Home");      
         }
 
 
@@ -364,7 +368,7 @@ namespace DB43.Controllers
             g.StudentId = Get_Student.Id;
             db.StudentRegisterCourses.Add(g);
             db.SaveChanges();
-            return View("CourseRegister");
+            return View("RegisteredCourses");
         }
         // courses teached by a teacher
         public ActionResult TeacherWithCourses()
@@ -421,9 +425,41 @@ namespace DB43.Controllers
 
         }
 
+        public ActionResult RegisteredCourses()
+        {
+            SqlConnection conn = new SqlConnection(connection);
+            string query;
+            SqlCommand SqlCommand;
+
+            List<AddCourseViewModels> lists = new List<AddCourseViewModels>();
+            //Open the connection to db
+            conn.Open();
+            //Generating the query to fetch the contact details
+            query = " select Course.Id,StudentRegisterCourse.DepartmentId,Course.Title,Course.Fee,Course.Credits,Course.CourseImage from Course inner join StudentRegisterCourse on Course.Id=StudentRegisterCourse.CourseId and StudentRegisterCourse.StudentId='"+loginId+"'";
+
+            SqlCommand = new SqlCommand(query, conn);
+            SqlDataReader rdr = SqlCommand.ExecuteReader();
+            while (rdr.Read())
+            {
+                var course =new  AddCourseViewModels();
+
+               course.Id = Convert.ToInt32(rdr[0]);
+                course.DepartmentId = Convert.ToInt32(rdr[1]);
+                course.Title = rdr[2].ToString();
+                course.Fee= Convert.ToInt32(rdr[3]);
+                course.Credits = rdr[4].ToString();
+               course.CourseImage= rdr[5].ToString();
+
+                lists.Add(course);
+            }
+
+            return View(lists);
 
 
         }
+
+
+    }
     }
 
 

@@ -1,9 +1,9 @@
 ﻿
 
 
-@model IEnumerable<DB43.Models.AnnouncementViewModel>
+@model  IEnumerable<DB43.Models.AddCourseViewModels>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_StudentLayout.cshtml";
 }
 
@@ -21,33 +21,45 @@
         </div>
     </div>
 </section>
-<center>
-    <table class="table">
+<br />
+<h4>Details</h4>
+<hr />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Credits)
+        </th>
+
+
+        <th>
+            @Html.DisplayNameFor(model => model.Fee)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.text)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CourseName)
-            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credits)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fee)
+            </td>
 
-            <th></th>
+         
         </tr>
+    }
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.text)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CourseName)
-                </td>
+</table>
 
 
-            </tr>
-        }
 
-    </table>
 
-</center>
+
