@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
-using DB43;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using DB43.Models;
+using DB43;
 using System.Data.SqlClient;
+using DB43.Models;
+using System.IO;
+
+using System.ComponentModel.DataAnnotations;
+using CrystalDecisions.CrystalReports.Engine;
 
 namespace DB43.Controllers
 {
     public class CourseController : Controller
     {
-		DB433Entities db = new DB433Entities();
-        public string connection = "Data Source=DESKTOP-G0K5DQK;Initial Catalog=DB433;Integrated Security=True";
+		DB43Entities1 db = new DB43Entities1();
+        public string connection = "Data Source=DESKTOP-QH0J28G;Initial Catalog=DB43;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework";
 
         public static int Cid;
         public ActionResult Get_Id(int id)
@@ -49,6 +56,7 @@ namespace DB43.Controllers
         //	return View("CourseRegister");
         //}
         // GET: Course
+      
         public ActionResult Index(int id)
 		{
 			var Get_Student = db.People.Single(u => u.Email == "farah@gmail.com");
@@ -95,9 +103,30 @@ namespace DB43.Controllers
 		}
 
 
+      /*  public ActionResult ExportCourse()
+        {  
+            ReportDocument rd = new ReportDocument();
+            //  rd.Load(Path.Combine(Server.MapPath("Student.rpt")));
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CourseList.rpt"));
+            rd.SetDataSource(viewList);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
 
-		// GET: Course/Details/5
-		public ActionResult Details(int CId)
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf", "Courses.pdf");
+            }
+            catch { throw; }
+        }*/
+
+
+
+
+        // GET: Course/Details/5
+        public ActionResult Details(int CId)
         {
             SqlConnection con = new SqlConnection(connection);
             con.Open();

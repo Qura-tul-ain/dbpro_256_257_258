@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="DB433Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="DB43Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="Announcement">
     <Key>
       <PropertyRef Name="Id" />
@@ -8,8 +8,8 @@
     <Property Name="Text" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="PersonId" Type="Int32" Nullable="false" />
     <Property Name="CourseId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Course" Relationship="Self.FK__Announcem__Cours__52593CB8" FromRole="Announcement" ToRole="Course" />
-    <NavigationProperty Name="Person" Relationship="Self.FK__Announcem__Perso__5165187F" FromRole="Announcement" ToRole="Person" />
+    <NavigationProperty Name="Course" Relationship="Self.FK__Announcem__Cours__3F466844" FromRole="Announcement" ToRole="Course" />
+    <NavigationProperty Name="Person" Relationship="Self.FK__Announcem__Perso__3E52440B" FromRole="Announcement" ToRole="Person" />
   </EntityType>
   <EntityType Name="CorrectOption">
     <Key>
@@ -18,7 +18,7 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Correctvalue" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="QuestionId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Question" Relationship="Self.FK__CorrectOp__Quest__4AB81AF0" FromRole="CorrectOption" ToRole="Questions" />
+    <NavigationProperty Name="Question" Relationship="Self.FK__CorrectOp__Quest__37A5467C" FromRole="CorrectOption" ToRole="Questions" />
   </EntityType>
   <EntityType Name="Course">
     <Key>
@@ -30,10 +30,10 @@
     <Property Name="Fee" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="DepartmentId" Type="Int32" Nullable="false" />
     <Property Name="CourseImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Announcements" Relationship="Self.FK__Announcem__Cours__52593CB8" FromRole="Course" ToRole="Announcement" />
-    <NavigationProperty Name="Department" Relationship="Self.FK__Course__Departme__2C3393D0" FromRole="Course" ToRole="Department" />
-    <NavigationProperty Name="Quizs" Relationship="Self.FK__Quiz__CourseId__3D5E1FD2" FromRole="Course" ToRole="Quiz" />
-    <NavigationProperty Name="StudentRegisterCourses" Relationship="Self.FK__StudentRe__Cours__38996AB5" FromRole="Course" ToRole="StudentRegisterCourse" />
+    <NavigationProperty Name="Announcements" Relationship="Self.FK__Announcem__Cours__3F466844" FromRole="Course" ToRole="Announcement" />
+    <NavigationProperty Name="Department" Relationship="Self.FK__Course__Departme__1920BF5C" FromRole="Course" ToRole="Department" />
+    <NavigationProperty Name="Quizs" Relationship="Self.FK__Quiz__CourseId__2A4B4B5E" FromRole="Course" ToRole="Quiz" />
+    <NavigationProperty Name="StudentRegisterCourses" Relationship="Self.FK__StudentRe__Cours__25869641" FromRole="Course" ToRole="StudentRegisterCourse" />
     <NavigationProperty Name="Instructors" Relationship="Self.AssignInstructor" FromRole="Course" ToRole="Instructor" />
   </EntityType>
   <EntityType Name="Department">
@@ -43,8 +43,8 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Courses" Relationship="Self.FK__Course__Departme__2C3393D0" FromRole="Department" ToRole="Course" />
-    <NavigationProperty Name="StudentRegisterCourses" Relationship="Self.FK__StudentRe__Depar__37A5467C" FromRole="Department" ToRole="StudentRegisterCourse" />
+    <NavigationProperty Name="Courses" Relationship="Self.FK__Course__Departme__1920BF5C" FromRole="Department" ToRole="Course" />
+    <NavigationProperty Name="StudentRegisterCourses" Relationship="Self.FK__StudentRe__Depar__24927208" FromRole="Department" ToRole="StudentRegisterCourse" />
   </EntityType>
   <EntityType Name="Instructor">
     <Key>
@@ -53,7 +53,7 @@
     <Property Name="InstructorId" Type="Int32" Nullable="false" />
     <Property Name="Qualification" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
-    <NavigationProperty Name="Person" Relationship="Self.FK__Instructo__Instr__29572725" FromRole="Instructor" ToRole="Person" />
+    <NavigationProperty Name="Person" Relationship="Self.FK__Instructo__Instr__164452B1" FromRole="Instructor" ToRole="Person" />
     <NavigationProperty Name="Courses" Relationship="Self.AssignInstructor" FromRole="Instructor" ToRole="Course" />
   </EntityType>
   <EntityType Name="Option">
@@ -64,7 +64,7 @@
     <Property Name="OptionValue" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="IsAnswer" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="QuestionsId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Question" Relationship="Self.FK__Options__Questio__46E78A0C" FromRole="Options" ToRole="Questions" />
+    <NavigationProperty Name="Question" Relationship="Self.FK__Options__Questio__33D4B598" FromRole="Options" ToRole="Questions" />
   </EntityType>
   <EntityType Name="Person">
     <Key>
@@ -78,9 +78,9 @@
     <Property Name="Gender" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Discriminator" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="Announcements" Relationship="Self.FK__Announcem__Perso__5165187F" FromRole="Person" ToRole="Announcement" />
-    <NavigationProperty Name="Instructor" Relationship="Self.FK__Instructo__Instr__29572725" FromRole="Person" ToRole="Instructor" />
-    <NavigationProperty Name="Students" Relationship="Self.FK__Student__PersonI__34C8D9D1" FromRole="Person" ToRole="Student" />
+    <NavigationProperty Name="Announcements" Relationship="Self.FK__Announcem__Perso__3E52440B" FromRole="Person" ToRole="Announcement" />
+    <NavigationProperty Name="Instructor" Relationship="Self.FK__Instructo__Instr__164452B1" FromRole="Person" ToRole="Instructor" />
+    <NavigationProperty Name="Students" Relationship="Self.FK__Student__PersonI__21B6055D" FromRole="Person" ToRole="Student" />
   </EntityType>
   <EntityType Name="Question">
     <Key>
@@ -90,10 +90,10 @@
     <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="TotalMarks" Type="Int32" Nullable="false" />
     <Property Name="QuizId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="CorrectOptions" Relationship="Self.FK__CorrectOp__Quest__4AB81AF0" FromRole="Questions" ToRole="CorrectOption" />
-    <NavigationProperty Name="Options" Relationship="Self.FK__Options__Questio__46E78A0C" FromRole="Questions" ToRole="Options" />
-    <NavigationProperty Name="Quiz" Relationship="Self.FK__Questions__QuizI__4222D4EF" FromRole="Questions" ToRole="Quiz" />
-    <NavigationProperty Name="StudentResults" Relationship="Self.FK__StudentRe__Quest__4E88ABD4" FromRole="Questions" ToRole="StudentResult" />
+    <NavigationProperty Name="CorrectOptions" Relationship="Self.FK__CorrectOp__Quest__37A5467C" FromRole="Questions" ToRole="CorrectOption" />
+    <NavigationProperty Name="Options" Relationship="Self.FK__Options__Questio__33D4B598" FromRole="Questions" ToRole="Options" />
+    <NavigationProperty Name="Quiz" Relationship="Self.FK__Questions__QuizI__2F10007B" FromRole="Questions" ToRole="Quiz" />
+    <NavigationProperty Name="StudentResults" Relationship="Self.FK__StudentRe__Quest__3B75D760" FromRole="Questions" ToRole="StudentResult" />
   </EntityType>
   <EntityType Name="Quiz">
     <Key>
@@ -104,8 +104,8 @@
     <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="TotalMarks" Type="Int32" Nullable="false" />
     <Property Name="CourseId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Course" Relationship="Self.FK__Quiz__CourseId__3D5E1FD2" FromRole="Quiz" ToRole="Course" />
-    <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__QuizI__4222D4EF" FromRole="Quiz" ToRole="Questions" />
+    <NavigationProperty Name="Course" Relationship="Self.FK__Quiz__CourseId__2A4B4B5E" FromRole="Quiz" ToRole="Course" />
+    <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__QuizI__2F10007B" FromRole="Quiz" ToRole="Questions" />
   </EntityType>
   <EntityType Name="Student">
     <Key>
@@ -116,7 +116,7 @@
     <Property Name="EnrollmentDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="PersonId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Person" Relationship="Self.FK__Student__PersonI__34C8D9D1" FromRole="Student" ToRole="Person" />
+    <NavigationProperty Name="Person" Relationship="Self.FK__Student__PersonI__21B6055D" FromRole="Student" ToRole="Person" />
   </EntityType>
   <EntityType Name="StudentRegisterCourse">
     <Key>
@@ -126,8 +126,8 @@
     <Property Name="DepartmentId" Type="Int32" Nullable="false" />
     <Property Name="CourseId" Type="Int32" Nullable="false" />
     <Property Name="StudentId" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Course" Relationship="Self.FK__StudentRe__Cours__38996AB5" FromRole="StudentRegisterCourse" ToRole="Course" />
-    <NavigationProperty Name="Department" Relationship="Self.FK__StudentRe__Depar__37A5467C" FromRole="StudentRegisterCourse" ToRole="Department" />
+    <NavigationProperty Name="Course" Relationship="Self.FK__StudentRe__Cours__25869641" FromRole="StudentRegisterCourse" ToRole="Course" />
+    <NavigationProperty Name="Department" Relationship="Self.FK__StudentRe__Depar__24927208" FromRole="StudentRegisterCourse" ToRole="Department" />
   </EntityType>
   <EntityType Name="StudentResult">
     <Key>
@@ -139,9 +139,9 @@
     <Property Name="EvalutionDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="Ans" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Marks" Type="Double" Nullable="false" />
-    <NavigationProperty Name="Question" Relationship="Self.FK__StudentRe__Quest__4E88ABD4" FromRole="StudentResult" ToRole="Questions" />
+    <NavigationProperty Name="Question" Relationship="Self.FK__StudentRe__Quest__3B75D760" FromRole="StudentResult" ToRole="Questions" />
   </EntityType>
-  <Association Name="FK__Announcem__Cours__52593CB8">
+  <Association Name="FK__Announcem__Cours__3F466844">
     <End Role="Course" Type="Self.Course" Multiplicity="1" />
     <End Role="Announcement" Type="Self.Announcement" Multiplicity="*" />
     <ReferentialConstraint>
@@ -153,7 +153,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Announcem__Perso__5165187F">
+  <Association Name="FK__Announcem__Perso__3E52440B">
     <End Role="Person" Type="Self.Person" Multiplicity="1" />
     <End Role="Announcement" Type="Self.Announcement" Multiplicity="*" />
     <ReferentialConstraint>
@@ -165,7 +165,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__CorrectOp__Quest__4AB81AF0">
+  <Association Name="FK__CorrectOp__Quest__37A5467C">
     <End Role="Questions" Type="Self.Question" Multiplicity="1" />
     <End Role="CorrectOption" Type="Self.CorrectOption" Multiplicity="*" />
     <ReferentialConstraint>
@@ -177,7 +177,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Course__Departme__2C3393D0">
+  <Association Name="FK__Course__Departme__1920BF5C">
     <End Role="Department" Type="Self.Department" Multiplicity="1" />
     <End Role="Course" Type="Self.Course" Multiplicity="*" />
     <ReferentialConstraint>
@@ -189,7 +189,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Quiz__CourseId__3D5E1FD2">
+  <Association Name="FK__Quiz__CourseId__2A4B4B5E">
     <End Role="Course" Type="Self.Course" Multiplicity="1" />
     <End Role="Quiz" Type="Self.Quiz" Multiplicity="*" />
     <ReferentialConstraint>
@@ -201,7 +201,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__StudentRe__Cours__38996AB5">
+  <Association Name="FK__StudentRe__Cours__25869641">
     <End Role="Course" Type="Self.Course" Multiplicity="1" />
     <End Role="StudentRegisterCourse" Type="Self.StudentRegisterCourse" Multiplicity="*" />
     <ReferentialConstraint>
@@ -213,7 +213,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__StudentRe__Depar__37A5467C">
+  <Association Name="FK__StudentRe__Depar__24927208">
     <End Role="Department" Type="Self.Department" Multiplicity="1" />
     <End Role="StudentRegisterCourse" Type="Self.StudentRegisterCourse" Multiplicity="*" />
     <ReferentialConstraint>
@@ -225,7 +225,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Instructo__Instr__29572725">
+  <Association Name="FK__Instructo__Instr__164452B1">
     <End Role="Person" Type="Self.Person" Multiplicity="1" />
     <End Role="Instructor" Type="Self.Instructor" Multiplicity="0..1" />
     <ReferentialConstraint>
@@ -237,7 +237,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Options__Questio__46E78A0C">
+  <Association Name="FK__Options__Questio__33D4B598">
     <End Role="Questions" Type="Self.Question" Multiplicity="1" />
     <End Role="Options" Type="Self.Option" Multiplicity="*" />
     <ReferentialConstraint>
@@ -249,7 +249,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Student__PersonI__34C8D9D1">
+  <Association Name="FK__Student__PersonI__21B6055D">
     <End Role="Person" Type="Self.Person" Multiplicity="1" />
     <End Role="Student" Type="Self.Student" Multiplicity="*" />
     <ReferentialConstraint>
@@ -261,7 +261,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Questions__QuizI__4222D4EF">
+  <Association Name="FK__Questions__QuizI__2F10007B">
     <End Role="Quiz" Type="Self.Quiz" Multiplicity="1" />
     <End Role="Questions" Type="Self.Question" Multiplicity="*" />
     <ReferentialConstraint>
@@ -273,7 +273,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__StudentRe__Quest__4E88ABD4">
+  <Association Name="FK__StudentRe__Quest__3B75D760">
     <End Role="Questions" Type="Self.Question" Multiplicity="1" />
     <End Role="StudentResult" Type="Self.StudentResult" Multiplicity="*" />
     <ReferentialConstraint>
@@ -289,7 +289,7 @@
     <End Role="Course" Type="Self.Course" Multiplicity="*" />
     <End Role="Instructor" Type="Self.Instructor" Multiplicity="*" />
   </Association>
-  <EntityContainer Name="DB433Entities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="DB43Entities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Announcements" EntityType="Self.Announcement" />
     <EntitySet Name="CorrectOptions" EntityType="Self.CorrectOption" />
     <EntitySet Name="Courses" EntityType="Self.Course" />
@@ -302,51 +302,51 @@
     <EntitySet Name="Students" EntityType="Self.Student" />
     <EntitySet Name="StudentRegisterCourses" EntityType="Self.StudentRegisterCourse" />
     <EntitySet Name="StudentResults" EntityType="Self.StudentResult" />
-    <AssociationSet Name="FK__Announcem__Cours__52593CB8" Association="Self.FK__Announcem__Cours__52593CB8">
+    <AssociationSet Name="FK__Announcem__Cours__3F466844" Association="Self.FK__Announcem__Cours__3F466844">
       <End Role="Course" EntitySet="Courses" />
       <End Role="Announcement" EntitySet="Announcements" />
     </AssociationSet>
-    <AssociationSet Name="FK__Announcem__Perso__5165187F" Association="Self.FK__Announcem__Perso__5165187F">
+    <AssociationSet Name="FK__Announcem__Perso__3E52440B" Association="Self.FK__Announcem__Perso__3E52440B">
       <End Role="Person" EntitySet="People" />
       <End Role="Announcement" EntitySet="Announcements" />
     </AssociationSet>
-    <AssociationSet Name="FK__CorrectOp__Quest__4AB81AF0" Association="Self.FK__CorrectOp__Quest__4AB81AF0">
+    <AssociationSet Name="FK__CorrectOp__Quest__37A5467C" Association="Self.FK__CorrectOp__Quest__37A5467C">
       <End Role="Questions" EntitySet="Questions" />
       <End Role="CorrectOption" EntitySet="CorrectOptions" />
     </AssociationSet>
-    <AssociationSet Name="FK__Course__Departme__2C3393D0" Association="Self.FK__Course__Departme__2C3393D0">
+    <AssociationSet Name="FK__Course__Departme__1920BF5C" Association="Self.FK__Course__Departme__1920BF5C">
       <End Role="Department" EntitySet="Departments" />
       <End Role="Course" EntitySet="Courses" />
     </AssociationSet>
-    <AssociationSet Name="FK__Quiz__CourseId__3D5E1FD2" Association="Self.FK__Quiz__CourseId__3D5E1FD2">
+    <AssociationSet Name="FK__Quiz__CourseId__2A4B4B5E" Association="Self.FK__Quiz__CourseId__2A4B4B5E">
       <End Role="Course" EntitySet="Courses" />
       <End Role="Quiz" EntitySet="Quizs" />
     </AssociationSet>
-    <AssociationSet Name="FK__StudentRe__Cours__38996AB5" Association="Self.FK__StudentRe__Cours__38996AB5">
+    <AssociationSet Name="FK__StudentRe__Cours__25869641" Association="Self.FK__StudentRe__Cours__25869641">
       <End Role="Course" EntitySet="Courses" />
       <End Role="StudentRegisterCourse" EntitySet="StudentRegisterCourses" />
     </AssociationSet>
-    <AssociationSet Name="FK__StudentRe__Depar__37A5467C" Association="Self.FK__StudentRe__Depar__37A5467C">
+    <AssociationSet Name="FK__StudentRe__Depar__24927208" Association="Self.FK__StudentRe__Depar__24927208">
       <End Role="Department" EntitySet="Departments" />
       <End Role="StudentRegisterCourse" EntitySet="StudentRegisterCourses" />
     </AssociationSet>
-    <AssociationSet Name="FK__Instructo__Instr__29572725" Association="Self.FK__Instructo__Instr__29572725">
+    <AssociationSet Name="FK__Instructo__Instr__164452B1" Association="Self.FK__Instructo__Instr__164452B1">
       <End Role="Person" EntitySet="People" />
       <End Role="Instructor" EntitySet="Instructors" />
     </AssociationSet>
-    <AssociationSet Name="FK__Options__Questio__46E78A0C" Association="Self.FK__Options__Questio__46E78A0C">
+    <AssociationSet Name="FK__Options__Questio__33D4B598" Association="Self.FK__Options__Questio__33D4B598">
       <End Role="Questions" EntitySet="Questions" />
       <End Role="Options" EntitySet="Options" />
     </AssociationSet>
-    <AssociationSet Name="FK__Student__PersonI__34C8D9D1" Association="Self.FK__Student__PersonI__34C8D9D1">
+    <AssociationSet Name="FK__Student__PersonI__21B6055D" Association="Self.FK__Student__PersonI__21B6055D">
       <End Role="Person" EntitySet="People" />
       <End Role="Student" EntitySet="Students" />
     </AssociationSet>
-    <AssociationSet Name="FK__Questions__QuizI__4222D4EF" Association="Self.FK__Questions__QuizI__4222D4EF">
+    <AssociationSet Name="FK__Questions__QuizI__2F10007B" Association="Self.FK__Questions__QuizI__2F10007B">
       <End Role="Quiz" EntitySet="Quizs" />
       <End Role="Questions" EntitySet="Questions" />
     </AssociationSet>
-    <AssociationSet Name="FK__StudentRe__Quest__4E88ABD4" Association="Self.FK__StudentRe__Quest__4E88ABD4">
+    <AssociationSet Name="FK__StudentRe__Quest__3B75D760" Association="Self.FK__StudentRe__Quest__3B75D760">
       <End Role="Questions" EntitySet="Questions" />
       <End Role="StudentResult" EntitySet="StudentResults" />
     </AssociationSet>

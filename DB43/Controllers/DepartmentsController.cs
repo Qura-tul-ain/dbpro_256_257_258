@@ -18,7 +18,7 @@ namespace DB43.Controllers
     public class DepartmentsController : Controller
     {
        // private DB43Entities db = new DB43Entities();
-        public string connection = " Data Source = DESKTOP-G0K5DQK; Initial Catalog = DB433; Integrated Security = True";
+        public string connection = " Data Source=DESKTOP-QH0J28G;Initial Catalog=DB43;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework";
        
         // GET: Departments
         // fro admin

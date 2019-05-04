@@ -8,12 +8,14 @@ using System.Net;
 using System.Web;
 using DB43;
 using System.Web.Mvc;
+using CrystalDecisions.CrystalReports.Engine;
 
 namespace DB43.Controllers
 {
     public class AddCourseController : Controller
     {
-        public string connection = " Data Source = DESKTOP-G0K5DQK; Initial Catalog = DB433; Integrated Security = True";
+        DB43Entities1 db = new DB43Entities1();
+        public string connection = "Data Source=DESKTOP-QH0J28G;Initial Catalog=DB43;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework ";
         public static int  DeptId;
         public static int instructorId;// store id of instructor
         public static int CId;// course id
@@ -55,6 +57,29 @@ namespace DB43.Controllers
             }
 
             return View(lists);
+        }
+        //Report
+        public ActionResult ExportCourse()
+        {
+            List<Course> AllCourse = new List<Course>();
+            AllCourse = db.Courses.ToList();
+
+
+            ReportDocument rd = new ReportDocument();
+            //  rd.Load(Path.Combine(Server.MapPath("Student.rpt")));
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CourseList.rpt"));
+            rd.SetDataSource(AllCourse);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf", "Course.pdf");
+            }
+            catch { throw; }
         }
         public ActionResult Get_CId(int id)
         {
